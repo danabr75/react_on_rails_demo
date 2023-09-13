@@ -10,6 +10,7 @@ import ReactDOM from 'react-dom';
 
 class ExampleComponent extends React.Component {
   render() {
+    console.log("aaaa?")
     return (
       <div>
         <p>The name of this component is: ExampleComponent</p>

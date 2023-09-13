@@ -15,3 +15,6 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+import HelloWorld from '../components/hello_world';
+import ExampleComponent from '../components/example_component';
