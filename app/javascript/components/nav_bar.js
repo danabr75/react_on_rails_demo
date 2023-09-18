@@ -1,19 +1,21 @@
-import React from "react";
-import { Nav, NavLink, NavMenu }
-  from "./nav_bar_elements";
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import {
+  Link
+} from "react-router-dom";
+
+import PropTypes from "prop-types";
+
 
 const NavBar = () => {
   return (
-    <Nav>
-      <NavMenu>
-        <NavLink to="/" activeStyle>
-          Home
-        </NavLink>
-        <NavLink to="/test" activeStyle>
-          Test
-        </NavLink>
-      </NavMenu>
-    </Nav>
+   <nav>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/test">Test</Link></li>
+      </ul>
+    </nav>
   );
 };
 

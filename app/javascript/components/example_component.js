@@ -11,7 +11,6 @@ import PropTypes from "prop-types";
 
 class ExampleComponent extends React.Component {
   render() {
-    console.log("aaaa?")
     return (
       <React.Fragment>
         The name of this component is: ExampleComponent
