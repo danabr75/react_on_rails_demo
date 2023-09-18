@@ -14,6 +14,10 @@ https://nodejs.org/en/
 
 # install yarn
 `brew install yarn`
+yarn add react react-dom
+yarn add @babel/preset-react prop-types --dev
+yarn add react-router-dom
+yarn add jquery
 
 # fix babel bug
 yarn add @babel/plugin-proposal-private-methods --dev
