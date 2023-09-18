@@ -18,6 +18,8 @@ yarn add react react-dom
 yarn add @babel/preset-react prop-types --dev
 yarn add react-router-dom
 yarn add jquery
+yarn add react-icons
+yarn add styled-components
 
 # fix babel bug
 yarn add @babel/plugin-proposal-private-methods --dev
