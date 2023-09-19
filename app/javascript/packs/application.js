@@ -22,6 +22,7 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+import UserLogin from '../components/users/login.jsx';
 import NavBar from '../components/nav_bar.jsx';
 import PageWrapper from '../components/page_wrapper.jsx';
 import HelloWorld from '../components/hello_world.jsx';
@@ -57,11 +58,12 @@ const App = () => {
         { <NavBar/> }
       </div>
 
-      <div className="container bg-light bg-gradient">
+      <div className="container bg-light bg-gradient pb-4 pt-4">
         <Routes>
           <Route path="/" element={<PageWrapper />}>
             <Route path="/" element={<Home />} />
             <Route path="/test" element={<ExampleComponent />} />
+            <Route path="/login" element={<UserLogin />} />
           </Route>
         </Routes>
       </div>

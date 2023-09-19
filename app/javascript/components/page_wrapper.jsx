@@ -10,9 +10,9 @@ import {
 const PageWrapper = () => {
   return (
     <div>
-      <div>START: This is the PageWrapper</div>
+      {/*<div>START: This is the PageWrapper</div>*/}
       <Outlet />
-      <div>STOP: This is the PageWrapper</div>
+      {/*<div>STOP: This is the PageWrapper</div>*/}
     </div>
   );
 };

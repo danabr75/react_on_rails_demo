@@ -14,5 +14,8 @@
  *= require_self
  */
 
+.navbar {height: 60px;}
 /* navbar padding height */
 body { padding-top: 60px; }
+
+@import 'semantic-ui-css/semantic.min.css'
