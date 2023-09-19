@@ -17,12 +17,31 @@
 
 @import 'semantic-ui-css/semantic.min.css';
 
+/*small screen*/
+@media (max-width: 991px) {
+  nav.navbar {
+    border-radius: 0px 0px 30px 30px !important;
+  }
+  .navbar-nav.float-end {
+    float: left !important;
+  }
+}
+/*large screen*/
+@media (min-width: 992px) {
+  nav.navbar {
+    border-radius: 0px 0px 30px 30px !important;
+  }
+}
 
-.navbar {
-  height: 60px;
+nav.navbar {
+  border: 4px solid #00f0ff !important;
   .nav-item {
     padding-bottom: 10px;
   }
+  .navbar-toggler {
+    padding-bottom: 10px;
+  }
+
 }
 /* navbar padding height */
 body {
