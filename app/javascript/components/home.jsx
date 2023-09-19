@@ -14,14 +14,17 @@ class Home extends React.Component {
         <div>This is the Home page.</div>
         <p>
           Welcome to our content index. Head over to{" "}
-          <Link to="/test">/test</Link> to see our catalog.
+          <Link to="/game_blogs">/game_blogs</Link> to see our catalog.
         </p>
         <p>Semantic UI</p>
-        <div class="ui three buttons">
-          <button class="ui button">One</button>
-          <button class="ui button">Two</button>
-          <button class="ui button">Three</button>
+        <div className="ui three buttons">
+          <button className="ui button">One</button>
+          <button className="ui button">Two</button>
+          <button className="ui button">Three</button>
         </div>
+        <p style={{height: '1000px'}}>
+          
+        </p>
       </div>
     );
   }

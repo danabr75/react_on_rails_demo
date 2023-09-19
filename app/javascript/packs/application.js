@@ -27,7 +27,7 @@ import NavBar from '../components/nav_bar.jsx';
 import PageWrapper from '../components/page_wrapper.jsx';
 import HelloWorld from '../components/hello_world.jsx';
 import Home from '../components/home.jsx';
-import ExampleComponent from '../components/example_component.jsx';
+import GameBlogs from '../components/game_blogs.jsx';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
@@ -62,7 +62,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<PageWrapper />}>
             <Route path="/" element={<Home />} />
-            <Route path="/test" element={<ExampleComponent />} />
+            <Route path="/game_blogs" element={<GameBlogs />} />
             <Route path="/login" element={<UserLogin />} />
           </Route>
         </Routes>

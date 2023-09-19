@@ -15,8 +15,6 @@
 // })
 
 
-import HelloWorld from '../components/hello_world';
-import ExampleComponent from '../components/example_component';
 // // This is how react_on_rails can see the HelloWorld in the browser.
 // ReactOnRails.register({
 //   HelloWorld,
