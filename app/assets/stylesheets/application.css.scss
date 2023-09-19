@@ -45,8 +45,11 @@ nav.navbar {
 }
 /* navbar padding height */
 body {
-  padding-top: 60px;
   overflow-y: scroll;
+}
+
+#nav-bar-height-buffer {
+  height: 60px;
 }
 
 #body-image-background {

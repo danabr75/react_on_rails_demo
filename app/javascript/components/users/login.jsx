@@ -19,6 +19,7 @@
 
 import React from "react";
 import {Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 class UserLogin extends React.Component {
   constructor(props) {
@@ -34,9 +35,10 @@ class UserLogin extends React.Component {
   }
 
   stripHtmlEntities(str) {
-      return String(str)
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;");
+    return str
+      // return String(str)
+      //     .replace(/</g, "&lt;")
+      //     .replace(/>/g, "&gt;");
   }
 
   onChange(event) {
@@ -45,34 +47,54 @@ class UserLogin extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
-    const url = "api/v1/users/create";
-    const { email, password } = this.state;
-
-    if (email.length === 0 || password.length === 0)
+    const url = "users/sign_in";
+    console.log("onSubmit")
+    console.log(this.state)
+    console.log(this.state['user[email]'])
+    // {user[email]: 'benrdana@gmail.com', user[password]: 'password'}
+    // const { user[email], password } = this.state;
+    if (this.state['user[password]'].length === 0 || this.state['user[email]'].length === 0)
         return;
 
     const body = {
-        email,
+      user: {
+        email: this.state['user[email]'],
         // description: description.replace(/\n/g, "<br> <br>")
-        password
+        password: this.state['user[password]']
+      }
     };
 
-    const token = document.querySelector('meta[name="csrf-token"]').content;
+    
+
+    // const token = document.querySelector('meta[name="csrf-token"]').content;
     fetch(url, {
         method: "POST",
         headers: {
-            "X-CSRF-Token": token,
+            // "X-CSRF-Token": token,
             "Content-Type": "application/json"
         },
         body: JSON.stringify(body)
     })
     .then(response => {
         if (response.ok) {
-            return response.json();
+            
+            // const navigate = useNavigate();
+
+            // navigate("/");
+          // this.props.history.push('/');
+          // const history = useHistory();
+          // history.push('/');
+
+          // return <Redirect to='/'  />
+          // window.RedirectTimeout('/')
+          window.location.replace('/')
+            // return response.json();
+        } else {
+          console.log(response)
+          throw new Error("Network response was not ok.");
         }
-        throw new Error("Network response was not ok.");
     })
-    .then(response => this.props.history.push(`/new_task/${response.id}`))
+    // .then(response => this.props.history.push(`/new_task/${response.id}`))
     .catch(error => console.log(error.message));
   }
 
@@ -88,7 +110,7 @@ class UserLogin extends React.Component {
               <div className="form-group">
                 <label htmlFor="userEmail">Email</label>
                 <input
-                  type="url"
+                  type="email"
                   name="user[email]"
                   // value={this.state.email}
                   className="form-control"
@@ -98,6 +120,7 @@ class UserLogin extends React.Component {
               </div>
               <label htmlFor="description">Password</label>
               <input
+                type="password"
                 className="form-control"
                 name="user[password]"
                 // value={this.state.password}

@@ -29,6 +29,7 @@ import HelloWorld from '../components/hello_world.jsx';
 import Home from '../components/home.jsx';
 import GameBlogs from '../components/game_blogs.jsx';
 import React from 'react';
+// import useEffect from 'react';
 import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
 // import Navigation from '../components/navigation';
