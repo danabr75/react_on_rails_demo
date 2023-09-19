@@ -20,6 +20,7 @@ yarn add react-router-dom
 yarn add jquery
 yarn add react-icons
 yarn add styled-components
+yarn add bootstrap reactstrap
 
 # fix babel bug
 yarn add @babel/plugin-proposal-private-methods --dev
@@ -50,3 +51,17 @@ rails generate react:component HelloWorld greeting:string
 
 # Clean webpacker cache before pushing
 rails tmp:clear
+
+
+# Notes:
+React with Bootstrap
+https://blog.logrocket.com/using-bootstrap-react-tutorial-examples/
+https://getbootstrap.com/docs/5.0
+
+Rails API Only
+https://guides.rubyonrails.org/api_app.html
+
+
+# React and Devise
+https://medium.com/@alessandrahagarty/using-devise-for-authentication-in-a-react-rails-app-f6a0eb87fbd5
+

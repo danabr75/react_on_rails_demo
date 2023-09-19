@@ -1,10 +1,3 @@
-// DEMO
-// function ExampleComponent(props) {
-//   return (
-//     <React.Fragment>
-//     </React.Fragment>
-//   );
-// }
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
