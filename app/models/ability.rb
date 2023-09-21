@@ -3,7 +3,7 @@ Dir[Rails.root.join('app', 'abilities', '*.rb')].each { |f| require f }
 
 class Ability
   include CanCan::Ability
-  include CanCanCanJs::Export
+  # include CanCanCanJs::Export
 
   MODEL_ABILITIES = Dir[Rails.root.join('app', 'abilities', '*.rb')]
   MODEL_ABILITIES.each { |f| require f }
@@ -12,6 +12,10 @@ class Ability
   # The active_account parameter is for export only to the front-end, and has no bearing on back-end authorization.
   def initialize(user = nil, active_account = nil)
     user ||= User.new # guest user (not logged in)
+
+    #Temp permissions, for testing
+    can :manage, :all# if Rails.env.development?
+    can :index, Blog
 
     # MODEL_ABILITIES.each do |filename|
     #   module_klass = File.basename(filename, '.rb').camelize.constantize

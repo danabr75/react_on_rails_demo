@@ -13,7 +13,8 @@ https://nodejs.org/en/
 `brew install node`
 
 # install yarn
-`brew install yarn`
+```
+brew install yarn
 yarn add react react-dom
 yarn add @babel/preset-react prop-types --dev
 yarn add react-router-dom
@@ -22,6 +23,10 @@ yarn add react-icons
 yarn add styled-components
 yarn add bootstrap reactstrap
 yarn add semantic-ui-react semantic-ui-css
+yarn add react-rails-pagination
+yarn add react-axios
+yarn add axios
+```
 
 # fix babel bug
 yarn add @babel/plugin-proposal-private-methods --dev

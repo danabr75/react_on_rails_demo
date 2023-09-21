@@ -22,12 +22,20 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+// Pages
+import BlogsPage from '../pages/blog_page.jsx';
+// import Blogs from '../components/blogs.jsx';
+
+
+// Components
 import UserLogin from '../components/users/login.jsx';
 import NavBar from '../components/nav_bar.jsx';
 import PageWrapper from '../components/page_wrapper.jsx';
 import HelloWorld from '../components/hello_world.jsx';
 import Home from '../components/home.jsx';
-import GameBlogs from '../components/game_blogs.jsx';
+import Error from '../components/error.jsx';
+
+
 import React from 'react';
 // import useEffect from 'react';
 import ReactDOM from 'react-dom';
@@ -63,8 +71,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<PageWrapper />}>
             <Route path="/" element={<Home />} />
-            <Route path="/game_blogs" element={<GameBlogs />} />
+            <Route path="/game_blogs" element={<BlogsPage />} />
             <Route path="/login" element={<UserLogin />} />
+            <Route path="*" element={<Error />} />
           </Route>
         </Routes>
       </div>

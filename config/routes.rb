@@ -26,6 +26,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users
+      resources :blogs do
+        collection do
+          get :meta
+        end
+      end
     end
   end
 
