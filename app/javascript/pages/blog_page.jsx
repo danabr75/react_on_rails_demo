@@ -7,7 +7,7 @@ import Blogs from '../components/blogs.jsx';
 import { useLocation, Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 
-import LoadingSpinner from '../components/loading_spinner.jsx'
+import LoadingSpinner, {ContainerSpinnerEnable, ContainerSpinnerDisable} from '../components/loading_spinner.jsx'
 
 const BlogPage = (props) => {
   const { id } = useParams()
@@ -16,6 +16,15 @@ const BlogPage = (props) => {
   const [blog, setBlog] = useState([]);
 
   const [spinnerActive, setSpinnerActive] = useState(true)
+  
+  // call spinner fcts when spinner state changes.
+  useEffect(() => {
+    if (spinnerActive) {
+      ContainerSpinnerEnable()
+    } else {
+      ContainerSpinnerDisable()
+    }
+  }, [spinnerActive]);
 
   function getAPIData() {
     return axios.get(

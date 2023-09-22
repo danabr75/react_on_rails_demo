@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { useLocation, Link } from 'react-router-dom';
 
 import Pagination from 'react-rails-pagination';
-import LoadingSpinner from '../components/loading_spinner.jsx'
+import LoadingSpinner, {ContainerSpinnerEnable, ContainerSpinnerDisable} from '../components/loading_spinner.jsx'
 
 const BlogsPage = (props) => {
 // const API_PATH = "/api/v1/blogs"
@@ -25,6 +25,15 @@ const BlogsPage = (props) => {
   const [blogs, setBlogs] = useState([]);
 
   const [spinnerActive, setSpinnerActive] = useState(true)
+
+  // call spinner fcts when spinner state changes.
+  useEffect(() => {
+    if (spinnerActive) {
+      ContainerSpinnerEnable()
+    } else {
+      ContainerSpinnerDisable()
+    }
+  }, [spinnerActive]);
 
   function getAPIData() {
     return axios.get(
@@ -65,7 +74,6 @@ const BlogsPage = (props) => {
   };
 
   const handleChangePage = (currentPage) => {
-    console.log("handleChangePage")
     setSpinnerActive(true)
     setPage(parseInt(currentPage));
   };

@@ -104,7 +104,71 @@ body {
   }
 }
 
-.spinner {
-  height: 500px;
+.spinner-container {
+  height: 100%;
+  .spinner-spacer {
+    height: 30vh;
+  }
+
+  .spinner-border.text-primary {
+    --bs-text-opacity: 1;
+  }
+
+  .spinner-inner.text-primary {
+    --bs-text-opacity: 0;
+    color: rgba(var(--bs-primary-rgb),var(--bs-text-opacity))!important;
+  }
+
+  .spinner-outer {
+    background-image: url('gear.png') !important;
+    background-size: 10vh 10vh;
+    background-repeat: no-repeat;
+    width: 10vh;
+    height: 10vh;
+    background-position: center;
+    margin-right: 2vh;
+    margin-left: 2vh;
+
+    animation:spin 2s linear infinite;
+
+    @keyframes spin{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}  
+    }
+  }
+
+  /* Duplicated from Bootstrap 5's .spinner-border  */
+  .spinner-inner {
+      &.heart {
+        background-image: url('box_heart.png');
+      }
+      &.hot-tub {
+        background-image: url('box_hot_tub.png');
+      }
+      &.thumbs-up {
+        background-image: url('box_thumbs_up.png');
+      }
+      background-image: url('black_question_mark.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 5vh 5vh;
+      border-right-color: transparent;
+
+/*      animation:spin 2s linear infinite;*/
+      width: 100%;
+      height: 100%;
+/*      @keyframes spin{
+        from{transform:rotate(0deg)}
+        to{transform:rotate(360deg)}  
+      }*/
+
+  }
+
+}
+
+#root-container.spinner-active {
+/*  background-color: red !important;*/
+  --bs-bg-opacity: 0.8;
+  height: 90vh;
 }
 
