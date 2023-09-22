@@ -7,7 +7,9 @@ import PropTypes from "prop-types";
 import { useLocation, Link } from 'react-router-dom';
 
 import Pagination from 'react-rails-pagination';
-import LoadingSpinner, { StyleSpinnerOnRootContainerEnable, StyleSpinnerOnRootContainerDisable } from '../components/loading_spinner.jsx'
+import LoadingSpinner from '../components/loading_spinner.jsx'
+
+import LoadingOverlay from 'react-loading-overlay'
 
 const BlogsPage = (props) => {
 // const API_PATH = "/api/v1/blogs"
@@ -24,7 +26,7 @@ const BlogsPage = (props) => {
   const [totalPages, setTotalPages] = useState(1);
   const [blogs, setBlogs] = useState([]);
 
-  const [loaded, setLoaded] = useState(false);
+  const [spinnerActive, setSpinnerActive] = useState(true)
 
   function getAPIData() {
     return axios.get(
@@ -60,20 +62,18 @@ const BlogsPage = (props) => {
     });
     getAPIData().then((items) => {
       setBlogs(items)
-      setLoaded(true)
-      StyleSpinnerOnRootContainerDisable()
+      setSpinnerActive(false)
     });
   };
 
   const handleChangePage = (currentPage) => {
     console.log("handleChangePage")
-    setLoaded(false)
-    StyleSpinnerOnRootContainerEnable()
+    setSpinnerActive(true)
     setPage(parseInt(currentPage));
   };
 
   let componentToRender;
-  if (loaded == false) {
+  if (spinnerActive) {
     componentToRender = <LoadingSpinner />;
   } else {
     componentToRender = <>
@@ -81,7 +81,7 @@ const BlogsPage = (props) => {
         <div className="col d-flex flex-grow-1  align-items-center">
           <h3 className=" ">Blogs</h3>
         </div>
-        <div className="col">
+        <div className="col upper-pagination">
           <Pagination page={page} pages={totalPages} handleChangePage={handleChangePage} />
         </div>
       </div>
@@ -93,7 +93,7 @@ const BlogsPage = (props) => {
         </section>
       ))}
 
-      <div className="col d-flex flex-grow-1 justify-content-center align-items-center">
+      <div className="col d-flex flex-grow-1 justify-content-center align-items-center lower-pagination">
         <Pagination page={page} pages={totalPages} handleChangePage={handleChangePage} />
       </div>
       {/* Component render with required props */}

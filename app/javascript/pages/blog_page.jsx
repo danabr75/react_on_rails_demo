@@ -7,7 +7,7 @@ import Blogs from '../components/blogs.jsx';
 import { useLocation, Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 
-import LoadingSpinner, { StyleSpinnerOnRootContainerEnable, StyleSpinnerOnRootContainerDisable } from '../components/loading_spinner.jsx'
+import LoadingSpinner from '../components/loading_spinner.jsx'
 
 const BlogPage = (props) => {
   const { id } = useParams()
@@ -15,7 +15,7 @@ const BlogPage = (props) => {
 
   const [blog, setBlog] = useState([]);
 
-  const [loaded, setLoaded] = useState(false);
+  const [spinnerActive, setSpinnerActive] = useState(true)
 
   function getAPIData() {
     return axios.get(
@@ -31,20 +31,15 @@ const BlogPage = (props) => {
   const fetchData = () => {
     getAPIData().then((item) => {
       setBlog(item)
-      setLoaded(true)
-      StyleSpinnerOnRootContainerDisable()
+      setSpinnerActive(false)
     });
   };
 
 
   let componentToRender;
-  console.log("CHECKING IF LOADED")
-  console.log(loaded)
-  if (loaded == false) {
-    console.log("SPINNER")
+  if (spinnerActive) {
     componentToRender = <LoadingSpinner />;
   } else {
-    console.log("CONTENT")
     componentToRender = <>
       <div className="row">
         <div className="col d-flex flex-grow-1  align-items-center">
