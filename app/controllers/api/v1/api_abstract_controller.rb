@@ -16,10 +16,19 @@ class Api::V1::ApiAbstractController < ApplicationController
   end
 
   def respond_with_resources
-    page     = params[:page]&.to_i || 1
-    per_page = params[:per_page]&.to_i || 10
-    offset   = per_page * (page - 1)
-    @resources = @resources.limit(per_page).offset(offset)
+    @resources = @resources.paginate(page: params[:page]&.to_i, per_page: params[:per_page]&.to_i || 10)
+    attempted_serializer_name = "#{@resource_class}Serializer"
+    if Object.const_defined?(attempted_serializer_name)
+      @resources = attempted_serializer_name.constantize.new(@resources, { is_collection: true }).serializable_hash.to_json
+    end
+    super
+  end
+
+  def respond_with_resource
+    attempted_serializer_name = "#{@resource_class}Serializer"
+    if Object.const_defined?(attempted_serializer_name)
+      @resource = attempted_serializer_name.constantize.new(@resource, { is_collection: false }).serializable_hash.to_json
+    end
     super
   end
 end

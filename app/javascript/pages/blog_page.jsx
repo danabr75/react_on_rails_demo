@@ -30,7 +30,7 @@ const BlogPage = (props) => {
 
   const fetchData = () => {
     getAPIData().then((item) => {
-      setBlog(item)
+      setBlog(item.data)
       setSpinnerActive(false)
     });
   };
@@ -47,8 +47,27 @@ const BlogPage = (props) => {
         </div>
       </div>
       <section className="article p-4 border rounded">
-          <h2 className="article-title">{blog.title}</h2>
-          <p className="article-body">{blog.body}</p>
+          <div className="row">
+            <h2 className="article-title col">{blog.attributes.title}</h2>
+            <div className="col">
+              <div className="float-end">
+              (
+              {blog.attributes.platform_tags_limited.map((platform) => (
+                <span key={platform.id}>
+                  {platform.name}
+                </span>
+              ))}
+              {blog.attributes.genre_tags.map((genre) => (
+                <span key={genre.id}>
+                   {' '}| {genre.name}
+                </span>
+              ))}
+              )
+              </div>
+            </div>
+          </div>
+
+          <p className="article-body">{blog.attributes.body}</p>
       </section>
       {/* Component render with required props */}
     </>

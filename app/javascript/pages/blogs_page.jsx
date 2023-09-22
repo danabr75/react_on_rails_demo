@@ -9,8 +9,6 @@ import { useLocation, Link } from 'react-router-dom';
 import Pagination from 'react-rails-pagination';
 import LoadingSpinner from '../components/loading_spinner.jsx'
 
-import LoadingOverlay from 'react-loading-overlay'
-
 const BlogsPage = (props) => {
 // const API_PATH = "/api/v1/blogs"
   const API_PATH = "/api/v1/blogs"
@@ -61,7 +59,7 @@ const BlogsPage = (props) => {
       )
     });
     getAPIData().then((items) => {
-      setBlogs(items)
+      setBlogs(items.data)
       setSpinnerActive(false)
     });
   };
@@ -76,6 +74,10 @@ const BlogsPage = (props) => {
   if (spinnerActive) {
     componentToRender = <LoadingSpinner />;
   } else {
+
+    // blogs.map((blog) => {
+    //   console.log(blog.attributes.platform_tags_limited);
+    // })
     componentToRender = <>
       <div className="row">
         <div className="col d-flex flex-grow-1  align-items-center">
@@ -86,10 +88,28 @@ const BlogsPage = (props) => {
         </div>
       </div>
 
-      {blogs.map((item) => (
-        <section key={item.id} className="article p-4 border rounded">
-            <h2 className="article-title"><Link to={'/game_blogs/' + item.id}>{item.title}</Link></h2>
-            <p className="article-body">{item.body}</p>
+      {blogs.map((blog) => (
+        <section key={blog.attributes.id} className="article p-4 border rounded">
+          <div className="row">
+            <h2 className="article-title col"><Link to={'/game_blogs/' + blog.attributes.id}>{blog.attributes.title}</Link></h2>
+            <div className="col">
+              <div className="float-end">
+              (
+              {blog.attributes.platform_tags_limited.map((platform) => (
+                <span key={platform.id}>
+                  {platform.name}
+                </span>
+              ))}
+              {blog.attributes.genre_tags.map((genre) => (
+                <span key={genre.id}>
+                   {' '}| {genre.name}
+                </span>
+              ))}
+              )
+              </div>
+            </div>
+          </div>
+          <p className="article-body">{blog.attributes.body_limited}</p>
         </section>
       ))}
 
