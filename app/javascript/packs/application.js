@@ -61,7 +61,7 @@ import {
 
 const App = () => {
   return (
-    <Router className="bg-light bg-gradient">
+    <Router>
 
       <div>
         {/*header*/}
@@ -90,9 +90,7 @@ const App = () => {
 document.addEventListener('DOMContentLoaded', () => {
   const root = createRoot(document.getElementById('root'));
   root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <App />
   );
   // Other ReactDOM operations or component rendering go here
 });

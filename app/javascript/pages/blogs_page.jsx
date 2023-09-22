@@ -3,7 +3,7 @@ import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios 
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
-import Blogs from '../components/blogs.jsx';
+// import Blogs from '../components/blogs.jsx';
 import { useLocation, Link } from 'react-router-dom';
 
 import Pagination from 'react-rails-pagination';
@@ -14,19 +14,14 @@ const BlogsPage = (props) => {
   const API_PATH = "/api/v1/blogs"
 
   // get current page params
-  console.log("get current page params")
   const location = useLocation();
-  console.log(location)
   const searchParams = new URLSearchParams(location.search);
-  console.log(searchParams)
   const initialPage = searchParams.get('page') ? parseInt(searchParams.get('page')) : undefined;
 
   const [page, setPage] = useState(initialPage || 1);
   const [totalBlogsCount, setTotalBlogsCount] = useState(1);
   const perPage = 30;
   const [totalPages, setTotalPages] = useState(1);
-  console.log("TOTAL PAGES SET")
-  console.log(totalPages)
   const [blogs, setBlogs] = useState([]);
 
   const [loaded, setLoaded] = useState(false);
@@ -44,11 +39,11 @@ const BlogsPage = (props) => {
     .then((response) => response.data)
   }
 
-  // init blogs on page load
-  useEffect(() => {
-    console.log("Triggered Page Load data")
-    fetchTableData()
-  }, []);
+  // // init blogs on page load
+  // // - appears to not be needed. The page listener is triggered on load.
+  // useEffect(() => {
+  //   fetchTableData()
+  // }, []);
 
   // update blogs on page change.
   useEffect(() => {
@@ -71,20 +66,16 @@ const BlogsPage = (props) => {
   };
 
   const handleChangePage = (currentPage) => {
+    console.log("handleChangePage")
     setLoaded(false)
     StyleSpinnerOnRootContainerEnable()
-    setBlogs([])
     setPage(parseInt(currentPage));
   };
 
   let componentToRender;
-  console.log("CHECKING IF LOADED")
-  console.log(loaded)
   if (loaded == false) {
-    console.log("SPINNER")
     componentToRender = <LoadingSpinner />;
   } else {
-    console.log("CONTENT")
     componentToRender = <>
       <div className="row">
         <div className="col d-flex flex-grow-1  align-items-center">
@@ -94,14 +85,7 @@ const BlogsPage = (props) => {
           <Pagination page={page} pages={totalPages} handleChangePage={handleChangePage} />
         </div>
       </div>
-{/*        <thead>
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Content</th>
-          </tr>
-        </thead>*/}
 
-      
       {blogs.map((item) => (
         <section key={item.id} className="article p-4 border rounded">
             <h2 className="article-title"><Link to={'/game_blogs/' + item.id}>{item.title}</Link></h2>
