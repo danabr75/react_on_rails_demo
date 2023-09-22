@@ -1,3 +1,2 @@
-class Api::V1::UsersController < ApplicationController
-  include CanCanCan::AbstractResourceController
+class Api::V1::UsersController < Api::V1::ApiAbstractController
 end

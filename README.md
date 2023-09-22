@@ -26,6 +26,7 @@ yarn add semantic-ui-react semantic-ui-css
 yarn add react-rails-pagination
 yarn add react-axios
 yarn add axios
+yarn add "@babel/plugin-proposal-private-methods"
 ```
 
 # fix babel bug

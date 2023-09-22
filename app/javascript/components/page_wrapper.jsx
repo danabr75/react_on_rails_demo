@@ -9,7 +9,8 @@ import {
 
 const PageWrapper = () => {
   return (
-    <div>
+    <div id="root-container" className="container bg-light bg-gradient pb-4 pt-4">
+
       {/*<div>START: This is the PageWrapper</div>*/}
       <Outlet />
       {/*<div>STOP: This is the PageWrapper</div>*/}
