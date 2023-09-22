@@ -1,5 +1,8 @@
 // ex usage:
 //
+// // Use setSpinnerActive to enable,disable spinner
+// const [spinnerActive, setSpinnerActive] = useState(true)
+//
 // // call spinner fcts when spinner state changes.
 // useEffect(() => {
 //   if (spinnerActive) {
@@ -17,10 +20,8 @@
 // }
 // return componentToRender;
 
-
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
-
 
 export const ContainerSpinnerEnable = () => {
   $('#root-container').addClass("spinner-active")
@@ -30,6 +31,14 @@ export const ContainerSpinnerDisable = () => {
 }
 
 const LoadingSpinner = () => {
+  useEffect(() => {
+    // Mount Event
+    return () => {
+      // Component unmount event.
+      ContainerSpinnerDisable()
+    }
+  }, []);
+
   return <>
     <div className="spinner-container">
       <div className="spinner-spacer">
