@@ -43,7 +43,7 @@ const LoadingSpinner = () => {
             </div>
           </div>
 
-          <div className="spinner-outer">
+          <div className="spinner-outer spinner-reverse">
             <div className="spinner-inner hot-tub text-primary" role="status">
             </div>
           </div>

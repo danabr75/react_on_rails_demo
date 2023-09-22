@@ -137,27 +137,35 @@ body {
     width: 10vh;
     height: 10vh;
     background-position: center;
-    margin-right: 2vh;
-    margin-left: 2vh;
+    margin-right: 0.5vh;
+    margin-left: 0.5vh;
 
     animation:spin 2s linear infinite;
+
+    &.spinner-reverse {
+      animation:reverse-spin 2s linear infinite;
+    }
 
     @keyframes spin{
       from{transform:rotate(0deg)}
       to{transform:rotate(360deg)}  
+    }
+    @keyframes reverse-spin{
+      from{transform:rotate(360deg)}
+      to{transform:rotate(0deg)}  
     }
   }
 
   /* Duplicated from Bootstrap 5's .spinner-border  */
   .spinner-inner {
       &.heart {
-        background-image: url('box_heart.png');
+        background-image: url('emotes/love112.png');
       }
       &.hot-tub {
-        background-image: url('box_hot_tub.png');
+        background-image: url('emotes/hype112.png');
       }
       &.thumbs-up {
-        background-image: url('box_thumbs_up.png');
+        background-image: url('emotes/really112.png');
       }
       background-image: url('black_question_mark.png');
       background-position: center;
