@@ -47,10 +47,13 @@ const BlogsPage = (props) => {
 
   const [blogs, setBlogs] = useState([]);
 
-  const [spinnerActive, setSpinnerActive] = useState(true)
+  // we don't want the footer spinner to be active on page load,
+  // so we're using 'undefined' as a 3rd state: page init.
+  const [spinnerActive, setSpinnerActive] = useState(undefined)
 
   // call spinner fcts when spinner state changes.
   useEffect(() => {
+    console.log("BlogsPage - spinner check")
     if (spinnerActive) {
       ContainerSpinnerEnable()
     } else {
@@ -131,7 +134,9 @@ const BlogsPage = (props) => {
       )
       setTags(meta.tags)
     });
-    setSpinnerActive(true)
+    if (spinnerActive == false) {
+      setSpinnerActive(true)
+    }
     getAPIData().then((items) => {
       setSpinnerActive(false)
       setBlogs(items.data)

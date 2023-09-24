@@ -24,12 +24,14 @@ import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
 
 export const ContainerSpinnerEnable = () => {
+  console.log("ContainerSpinnerEnable")
   $('.loading-spinner-content').addClass("element-overlay")
-  // $('.spinner-container').removeClass("spinner-hidden")
+  $('#footer-spinner-container').removeClass("hidden")
 }
 export const ContainerSpinnerDisable = () => {
+  console.log("ContainerSpinnerDisable")
   $('.loading-spinner-content').removeClass("element-overlay")
-  // $('.spinner-container').addClass("spinner-hidden")
+  $('#footer-spinner-container').addClass("hidden")
 }
 
 export const InitialSpinnerDisable = () => {
@@ -66,7 +68,7 @@ const LoadingSpinner = (props) => {
               </div>
 
               <div className="spinner-outer">
-                <div className="spinner-inner thumbs-up text-primary" role="status">
+                <div className="spinner-inner really text-primary" role="status">
                 </div>
               </div>
 
@@ -78,6 +80,13 @@ const LoadingSpinner = (props) => {
       {/*Start with overlay*/}
       <div className="loading-spinner-content element-overlay">
         {props.children}
+      </div>
+
+      <div id="footer-spinner-container" className="hidden">
+        <div className="spinner-outer">
+          <div className="spinner-inner really text-primary" role="status">
+          </div>
+        </div>
       </div>
     </>
   )
