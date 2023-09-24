@@ -116,9 +116,12 @@ body {
 }
 
 .spinner-container {
+  &.spinner-hidden {
+    display: none;
+  }
   height: 100%;
   .spinner-spacer {
-    height: 30vh;
+    height: 20vh;
   }
 
   .spinner-border.text-primary {
@@ -182,12 +185,31 @@ body {
       }*/
 
   }
-
 }
 
-#root-container.spinner-active {
-/*  background-color: red !important;*/
-  --bs-bg-opacity: 0.8;
-  height: 90vh;
+.spinner-for-content-active {
+  --bs-bg-opacity: 0.8 !important;
+  height: 90vh !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+.element-overlay {
+  position: relative;
+}
+
+.element-overlay:after {
+  content: " ";
+  /*  z-index: 10;*/
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
 }
 

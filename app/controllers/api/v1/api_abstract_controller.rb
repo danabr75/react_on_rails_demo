@@ -12,7 +12,7 @@ class Api::V1::ApiAbstractController < ApplicationController
   protected
 
   def slow_down_dev_env
-    sleep(1)
+    sleep(2.5)
   end
 
   def respond_with_resources

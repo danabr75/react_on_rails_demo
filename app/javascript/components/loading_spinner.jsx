@@ -24,13 +24,20 @@ import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
 
 export const ContainerSpinnerEnable = () => {
-  $('#root-container').addClass("spinner-active")
+  $('.loading-spinner-content').addClass("element-overlay")
+  // $('.spinner-container').removeClass("spinner-hidden")
 }
 export const ContainerSpinnerDisable = () => {
-  $('#root-container').removeClass("spinner-active")
+  $('.loading-spinner-content').removeClass("element-overlay")
+  // $('.spinner-container').addClass("spinner-hidden")
 }
 
-const LoadingSpinner = () => {
+export const InitialSpinnerDisable = () => {
+  console.log("hiding initial spinner")
+  $('#initial-page-loading-spinner').addClass("hidden")
+}
+
+const LoadingSpinner = (props) => {
   useEffect(() => {
     // Mount Event
     return () => {
@@ -39,34 +46,41 @@ const LoadingSpinner = () => {
     }
   }, []);
 
-  return <>
-    <div className="spinner-container">
-      <div className="spinner-spacer">
-      </div>
+  return (
+    <>
+      <div id="initial-page-loading-spinner" className="spinner-container">
+        <div className="spinner-spacer">
+        </div>
 
-      <div className="d-flex flex-column">
-        <div className="d-flex flex-grow-1 justify-content-center align-items-center">
+        <div className="d-flex flex-column">
+          <div className="d-flex flex-grow-1 justify-content-center align-items-center">
 
-            <div className="spinner-outer">
-              <div className="spinner-inner heart text-primary" role="status">
+              <div className="spinner-outer">
+                <div className="spinner-inner heart text-primary" role="status">
+                </div>
               </div>
-            </div>
 
-            <div className="spinner-outer spinner-reverse">
-              <div className="spinner-inner hot-tub text-primary" role="status">
+              <div className="spinner-outer spinner-reverse">
+                <div className="spinner-inner hot-tub text-primary" role="status">
+                </div>
               </div>
-            </div>
 
-            <div className="spinner-outer">
-              <div className="spinner-inner thumbs-up text-primary" role="status">
+              <div className="spinner-outer">
+                <div className="spinner-inner thumbs-up text-primary" role="status">
+                </div>
               </div>
-            </div>
 
 
+          </div>
         </div>
       </div>
-    </div>
-  </>
+
+      {/*Start with overlay*/}
+      <div className="loading-spinner-content element-overlay">
+        {props.children}
+      </div>
+    </>
+  )
 };
 
 export default LoadingSpinner;

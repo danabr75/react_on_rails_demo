@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { useLocation, Link, useSearchParams } from 'react-router-dom';
 
 import Pagination from 'react-rails-pagination';
-import LoadingSpinner, {ContainerSpinnerEnable, ContainerSpinnerDisable} from '../components/loading_spinner.jsx'
+import LoadingSpinner, {ContainerSpinnerEnable, ContainerSpinnerDisable, InitialSpinnerDisable} from '../components/loading_spinner.jsx'
 
 // src: https://www.npmjs.com/package/multiselect-react-dropdown
 import Multiselect from 'multiselect-react-dropdown';
@@ -105,7 +105,7 @@ const BlogsPage = (props) => {
   //   fetchTableData()
   // }, []);
 
-  // update blogs on page change
+  // update blogs on page change (also updates on page load)
   useEffect(() => {
     fetchTableData()
   }, [page]);
@@ -131,81 +131,71 @@ const BlogsPage = (props) => {
       )
       setTags(meta.tags)
     });
+    setSpinnerActive(true)
     getAPIData().then((items) => {
-      setBlogs(items.data)
       setSpinnerActive(false)
+      setBlogs(items.data)
+      InitialSpinnerDisable()
     });
   };
 
   const handleChangePage = (currentPage) => {
     if (page !== currentPage) {
-      setSpinnerActive(true)
+      // setSpinnerActive(true)
       setPage(parseInt(currentPage));
     }
   };
 
-
-  let componentToRender;
-  if (spinnerActive) {
-    componentToRender = <LoadingSpinner />;
-  } else {
-    componentToRender = <>
+  return (
+    <>
       <div className="row">
         <div className="col d-flex flex-grow-1  align-items-center">
           <h3 className=" ">Blogs</h3>
         </div>
         <div className="col d-flex flex-grow-1 align-items-center">
-          {/*// Tag Search*/}
-          {/*
-          const [tags, setTags] = useState([]);
-          const [selectedTags, setSelectedTags] = useState([]);*/}
           <Multiselect
-          options={tags} // Options to display in the dropdown
-          selectedValues={selectedTags} // Preselected value to persist in dropdown
-          onSelect={onSelect} // Function will trigger on select event
-          onRemove={onRemove} // Function will trigger on remove event
-          displayValue="name" // Property name to display in the dropdown options
+            options={tags} // Options to display in the dropdown
+            selectedValues={selectedTags} // Preselected value to persist in dropdown
+            onSelect={onSelect} // Function will trigger on select event
+            onRemove={onRemove} // Function will trigger on remove event
+            displayValue="name" // Property name to display in the dropdown options
           />
-
         </div>
         <div className="col upper-pagination">
           {totalPages > 1 && <Pagination page={page} pages={totalPages} handleChangePage={handleChangePage} />}
         </div>
       </div>
-
-      {blogs.map((blog) => (
-        <section key={blog.attributes.id} className="article p-4 border rounded row">
-          <div className="row">
-            <h2 className="article-title col"><Link to={'/game_blogs/' + blog.attributes.id}>{blog.attributes.title}</Link></h2>
-            <div className="col">
-              <div className="float-end">
-              (
-              {blog.attributes.platform_tags_limited.map((platform) => (
-                <span key={platform.id}>
-                  {platform.name}
-                </span>
-              ))}
-              {blog.attributes.genre_tags.map((genre) => (
-                <span key={genre.id}>
-                   {' '}| {genre.name}
-                </span>
-              ))}
-              )
+      <LoadingSpinner>
+        {blogs.map((blog) => (
+          <section key={blog.attributes.id} className="article p-4 border rounded row">
+            <div className="row">
+              <h2 className="article-title col"><Link to={'/game_blogs/' + blog.attributes.id}>{blog.attributes.title}</Link></h2>
+              <div className="col">
+                <div className="float-end">
+                (
+                {blog.attributes.platform_tags_limited.map((platform) => (
+                  <span key={platform.id}>
+                    {platform.name}
+                  </span>
+                ))}
+                {blog.attributes.genre_tags.map((genre) => (
+                  <span key={genre.id}>
+                     {' '}| {genre.name}
+                  </span>
+                ))}
+                )
+                </div>
               </div>
             </div>
-          </div>
-          <p className="article-body">{blog.attributes.body_limited}</p>
-        </section>
-      ))}
-
+            <p className="article-body">{blog.attributes.body_limited}</p>
+          </section>
+        ))}
+      </LoadingSpinner>
       <div className="col d-flex flex-grow-1 justify-content-center align-items-center lower-pagination">
         {totalPages > 1 && <Pagination page={page} pages={totalPages} handleChangePage={handleChangePage} />}
       </div>
-      {/* Component render with required props */}
     </>
-  }
-
-  return componentToRender;
+  );
 };
 
 export default BlogsPage;
