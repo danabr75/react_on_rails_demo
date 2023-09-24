@@ -1,5 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, {useEffect} from 'react';
+import {
+  useLocation
+} from "react-router-dom";
+
 
 import {
   Link,
@@ -9,6 +12,15 @@ import {
 import PropTypes from "prop-types";
 
 const NavBar = () => {
+  const location = useLocation();
+  useEffect(() => {
+    console.log("Location Change - navbar")
+    // Bootstrap will not reset clicked links in navbar
+    if ($('.navbar-collapse.collapse.show').length == 1) {
+      $('.navbar-toggler').click()
+    }
+  }, [location]);
+
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-primary bg-gradient rounded-pill rounded-top border border-3">
       <div className="container-fluid">
