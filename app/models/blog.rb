@@ -1,9 +1,6 @@
 class Blog < ApplicationRecord
-  # has_many :blogs_tag
-  # has_and_belongs_to_many :tags
-  # has_one :platform, -> { where(category: 'platform') }, through: :blogs_tag, source: :tag, class_name: 'Tag'
-  # has_one :genre, -> { where(category: 'genre') }, class_name: 'Tag'
-  # accepts_nested_attributes_for :tags
+  # include Elasticsearch::Model
+  # include Elasticsearch::Model::Callbacks
 
   has_many :blogs_tags
   has_many :tags, through: :blogs_tags, source: :tag
@@ -15,6 +12,29 @@ class Blog < ApplicationRecord
   has_many :genre_tags, -> { where(category: 'genre') }, through: :blogs_tags, source: :tag
 
   has_many :uncategorized_tags, -> { where(category: nil) }, through: :blogs_tags, source: :tag
+
+  scope :order_by_created_desc, -> { order(created_at: :desc) }
+
+  def self.search options = {}
+    options ||= {}
+    query = where({})
+
+    # Must match one
+    # if options[:tag_ids].present?
+    #   query = query.joins(:blogs_tags).where(blogs_tags: { tag_id: options[:tag_ids] })
+    # end
+
+    # Must match all
+    if options[:tag_ids].present?
+      filter_query = query.joins(:tags)
+        .where(tags: { id: options[:tag_ids] })
+        .group(:id)
+        .having("COUNT(DISTINCT tags.id) = ?", options[:tag_ids].length)
+      query = query.where(id: filter_query)
+    end
+
+    return query
+  end
 
   protected
 

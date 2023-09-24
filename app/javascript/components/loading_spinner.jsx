@@ -47,20 +47,20 @@ const LoadingSpinner = () => {
       <div className="d-flex flex-column">
         <div className="d-flex flex-grow-1 justify-content-center align-items-center">
 
-          <div className="spinner-outer">
-            <div className="spinner-inner heart text-primary" role="status">
+            <div className="spinner-outer">
+              <div className="spinner-inner heart text-primary" role="status">
+              </div>
             </div>
-          </div>
 
-          <div className="spinner-outer spinner-reverse">
-            <div className="spinner-inner hot-tub text-primary" role="status">
+            <div className="spinner-outer spinner-reverse">
+              <div className="spinner-inner hot-tub text-primary" role="status">
+              </div>
             </div>
-          </div>
 
-          <div className="spinner-outer">
-            <div className="spinner-inner thumbs-up text-primary" role="status">
+            <div className="spinner-outer">
+              <div className="spinner-inner thumbs-up text-primary" role="status">
+              </div>
             </div>
-          </div>
 
 
         </div>

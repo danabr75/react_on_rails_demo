@@ -27,6 +27,8 @@ yarn add react-rails-pagination
 yarn add react-axios
 yarn add axios
 yarn add "@babel/plugin-proposal-private-methods"
+yarn add multiselect-react-dropdown
+yarn add qs
 ```
 
 # fix babel bug

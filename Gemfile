@@ -14,6 +14,10 @@ gem 'cancancan_resource_controller'
 
 gem 'will_paginate'
 
+# Use after docker: https://github.com/elastic/elasticsearch-rails/tree/main
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.8'
 # Use sqlite3 as the database for Active Record
