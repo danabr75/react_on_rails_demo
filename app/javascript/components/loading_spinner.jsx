@@ -3,7 +3,18 @@
 // // Use setSpinnerActive to enable,disable spinner
 // const [spinnerActive, setSpinnerActive] = useState(true)
 //
-// // call spinner fcts when spinner state changes.
+
+// // Start initial spinner on main container
+// useEffect(() => {
+//   InitialSpinnerEnable();
+//   yourAPIFunction().then((results) => {
+//     ...
+//     InitialSpinnerDisable();
+//   });
+// }, []);
+//
+// // Enable container overlay around the wrapped LoadingSpinner container
+// // - if you have repeated API calls
 // useEffect(() => {
 //   if (spinnerActive) {
 //     ContainerSpinnerEnable()
@@ -12,13 +23,9 @@
 //   }
 // }, [spinnerActive]);
 //
-// let componentToRender;
-// if (spinnerActive) {
-//   componentToRender = <LoadingSpinner />;
-// } else {
-//   componentToRender = // Normal content
-// }
-// return componentToRender;
+// <LoadingSpinner>
+//   <YourComponentHere>
+// </LoadingSpinner>
 
 import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
@@ -37,6 +44,12 @@ export const ContainerSpinnerDisable = () => {
 export const InitialSpinnerDisable = () => {
   console.log("hiding initial spinner")
   $('#initial-page-loading-spinner').addClass("hidden")
+  $('.loading-spinner-content').removeClass("hidden")
+  $('#root-container').removeClass('spinner-for-content-active')
+}
+export const InitialSpinnerEnable = () => {
+  $('.loading-spinner-content').addClass("hidden")
+  $('#root-container').addClass('spinner-for-content-active')
 }
 
 const LoadingSpinner = (props) => {
@@ -75,10 +88,13 @@ const LoadingSpinner = (props) => {
 
           </div>
         </div>
+
+        <div className="spinner-spacer">
+        </div>
       </div>
 
       {/*Start with overlay*/}
-      <div className="loading-spinner-content element-overlay">
+      <div className="loading-spinner-content">
         {props.children}
       </div>
 

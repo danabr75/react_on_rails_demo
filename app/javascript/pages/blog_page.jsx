@@ -7,24 +7,29 @@ import Blogs from '../components/blogs.jsx';
 import { useLocation, Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 
-import LoadingSpinner, {ContainerSpinnerEnable, ContainerSpinnerDisable} from '../components/loading_spinner.jsx'
+import LoadingSpinner,{
+  ContainerSpinnerEnable,
+  ContainerSpinnerDisable,
+  InitialSpinnerDisable,
+  InitialSpinnerEnable
+} from '../components/loading_spinner.jsx'
 
 const BlogPage = (props) => {
   const { id } = useParams()
   const API_PATH = "/api/v1/blogs/"
 
-  const [blog, setBlog] = useState([]);
+  const [blog, setBlog] = useState({attributes: {}});
 
   const [spinnerActive, setSpinnerActive] = useState(true)
   
   // call spinner fcts when spinner state changes.
-  useEffect(() => {
-    if (spinnerActive) {
-      ContainerSpinnerEnable()
-    } else {
-      ContainerSpinnerDisable()
-    }
-  }, [spinnerActive]);
+  // useEffect(() => {
+  //   if (spinnerActive) {
+  //     ContainerSpinnerEnable()
+  //   } else {
+  //     ContainerSpinnerDisable()
+  //   }
+  // }, [spinnerActive]);
 
   function getAPIData() {
     return axios.get(
@@ -34,55 +39,43 @@ const BlogPage = (props) => {
 
   // init blogs on page load
   useEffect(() => {
-    fetchData()
+    InitialSpinnerEnable();
+    fetchData();
   }, []);
+
+  
 
   const fetchData = () => {
     getAPIData().then((item) => {
-      setBlog(item.data)
-      setSpinnerActive(false)
+      setBlog(item.data);
+      InitialSpinnerDisable();
     });
   };
 
 
-  let componentToRender;
-  if (spinnerActive) {
-    componentToRender = <LoadingSpinner />;
-  } else {
-    componentToRender = <>
-      <div className="row">
-        <div className="col d-flex flex-grow-1  align-items-center">
-          <Link className="btn btn-secondary" to="/game_blogs">Back to Blogs</Link>
-        </div>
+  return <>
+    <div className="row">
+      <div className="col d-flex flex-grow-1  align-items-center">
+        <Link className="btn btn-secondary" to="/game_blogs">Back to Blogs</Link>
       </div>
+    </div>
+    <LoadingSpinner>
       <section className="article p-4 border rounded">
           <div className="row">
-            <h2 className="article-title col">{blog.attributes.title}</h2>
+            <div className="col col-md-4">
+              <h2 className="article-title">{blog.attributes.title}</h2>
+            </div>
             <div className="col">
               <div className="float-end">
-              (
-              {blog.attributes.platform_tags_limited.map((platform) => (
-                <span key={platform.id}>
-                  {platform.name}
-                </span>
-              ))}
-              {blog.attributes.genre_tags.map((genre) => (
-                <span key={genre.id}>
-                   {' '}| {genre.name}
-                </span>
-              ))}
-              )
+                {/* tags*/}
               </div>
             </div>
           </div>
 
           <p className="article-body">{blog.attributes.body}</p>
       </section>
-      {/* Component render with required props */}
-    </>
-  }
-
-  return componentToRender;
+    </LoadingSpinner>
+  </>
 };
 
 export default BlogPage;

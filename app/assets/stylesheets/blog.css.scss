@@ -8,14 +8,22 @@
 }
 
 /* Styling for article titles */
-.article-title {
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-    a {
-      color: #333 !important;
-      text-decoration: none;
+a.article-link {
+  text-decoration: none;
+  .article-title {
+    &:hover {
+      color: red !important;
     }
+  }
 }
+.article-title {
+  background-color: #bddafa; /* Button background color */
+  border-radius: 11px;
+  color: #ff00e4 !important;
+  text-decoration: none;
+
+}
+
 
 /* Styling for article bodies */
 .article-body {
@@ -30,20 +38,20 @@
 }
 
 .tag-button {
-    margin-left: 1vh;
-    display: inline-block;
-    /*  default  */
-    background-color: #007bff; /* Button background color */
-    color: #fff; /* Text color */
-    padding: 5px 10px; /* Adjust padding to control button size */
-    border-radius: 11px 30px 30px 11px !important;
-    cursor: pointer;
-    &.tag-platform {
-      background-color:  red;
-    }
-    &.tag-genre {
-      background-color: green;
-    }
+  margin-left: 1vh;
+  display: inline-block;
+  /*  default  */
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Text color */
+  padding: 5px 10px; /* Adjust padding to control button size */
+  border-radius: 11px 30px 30px 11px !important;
+  cursor: pointer;
+  &.tag-platform {
+    background-color:  red;
+  }
+  &.tag-genre {
+    background-color: green;
+  }
 }
 /* very small screen  */
 @media (max-width: 325px) {

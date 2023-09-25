@@ -6,7 +6,12 @@ import PropTypes from "prop-types";
 import { useLocation, Link, useSearchParams } from 'react-router-dom';
 
 import Pagination from 'react-rails-pagination';
-import LoadingSpinner, {ContainerSpinnerEnable, ContainerSpinnerDisable, InitialSpinnerDisable} from '../components/loading_spinner.jsx'
+import LoadingSpinner,{
+  ContainerSpinnerEnable,
+  ContainerSpinnerDisable,
+  InitialSpinnerDisable,
+  InitialSpinnerEnable
+} from '../components/loading_spinner.jsx'
 
 // src: https://www.npmjs.com/package/multiselect-react-dropdown
 import Multiselect from 'multiselect-react-dropdown';
@@ -64,6 +69,7 @@ const BlogsPage = (props) => {
   // so we're using 'undefined' as a 3rd state: page init.
   const [spinnerActive, setSpinnerActive] = useState(undefined)
 
+
   function getAPIData() {
     console.log("API DATA")
     let tag_ids = selectedTags.map((v) => v.id);
@@ -119,7 +125,8 @@ const BlogsPage = (props) => {
 
   useEffect(() => {
     console.log("FIRST LOAD")
-    setFirstLoad(true)
+    InitialSpinnerEnable();
+    setFirstLoad(true);
   }, []);
 
   // When selecting tags, if not on page one, merely change to page 1 for refresh
@@ -203,8 +210,14 @@ const BlogsPage = (props) => {
         {blogs.map((blog) => (
           <section key={blog.attributes.id} className="article p-4 border rounded row">
             <div className="row">
-              <h2 className="article-title col"><Link to={'/game_blogs/' + blog.attributes.id}>{blog.attributes.title}</Link></h2>
-              <div className="col">
+              <div className="col col-md-4">
+                <Link to={'/game_blogs/' + blog.attributes.id} className="article-link">
+                  <h2 className="article-title">
+                    {blog.attributes.title}
+                  </h2>
+                </Link>
+              </div>
+              <div className="col col-md-8">
                 <div className="float-end">
                   {blog.attributes.platform_tags_limited.map((platform) => (
                     <span key={platform.id} className="tag-button tag-platform">
