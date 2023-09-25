@@ -178,11 +178,8 @@ const BlogsPage = (props) => {
   return (
     <>
       <div className="row">
-        <div className="col col-md-2 d-flex align-items-center">
-          <h3 className=" ">Blogs</h3>
-        </div>
-        <div className="col col-md-5 d-flex align-items-center">
-
+        <div className="col col-md-7 d-flex align-items-center">
+          <h3 className="pe-3">Blogs</h3>
           <form className="form-inline row">
             <div className="form-group col d-flex align-items-center">
               <input className="form-control" type="search" placeholder="Search" id="example-search-input"/>
