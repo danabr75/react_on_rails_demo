@@ -3,7 +3,6 @@ import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios 
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
-// import Blogs from '../components/blogs.jsx';
 import { useLocation, Link, useSearchParams } from 'react-router-dom';
 
 import Pagination from 'react-rails-pagination';
@@ -18,35 +17,29 @@ let count = 0
 
 const BlogsPage = (props) => {
   console.log("BlogsPage")
+  const [firstLoad, setFirstLoad] = useState(true);
   console.log(count)
   
   const API_PATH = "/api/v1/blogs"
 
-  if (count > 0){
-    // // return null;
-    // const customError = new Error('This is a custom error message');
-    // // Access the stack trace
-    // const stackTrace = customError.stack;
-    // console.error('Stack trace:', stackTrace);
-  }
+  // HOW TO THROW A STACKTRACE
+  // const customError = new Error('This is a custom error message');
+  // // Access the stack trace
+  // const stackTrace = customError.stack;
+  // console.error('Stack trace:', stackTrace);
 
   count = count + 1
 
   // get current page params
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const initialPage = searchParams.has('page') ? parseInt(searchParams.get('page')) : undefined;
-  console.log("FOUND INITIAL PAGE")
-  console.log(initialPage)
+  const initialPage = searchParams.has('page') ? parseInt(searchParams.get('page')) : 1;
 
   // TODO support URL search
   const initialSearch = searchParams.get('initialSearch')
 
-  console.log(page)
-  const [page, setPage] = useState(initialPage || 1);
+  const [page, setPage] = useState(initialPage);
 
-  console.log("SETTING PAGE HERE")
-  console.log(page)
   const [totalBlogsCount, setTotalBlogsCount] = useState(1);
   const perPage = 30;
   const [totalPages, setTotalPages] = useState(1);
@@ -71,16 +64,6 @@ const BlogsPage = (props) => {
   // so we're using 'undefined' as a 3rd state: page init.
   const [spinnerActive, setSpinnerActive] = useState(undefined)
 
-  // call spinner fcts when spinner state changes.
-  useEffect(() => {
-    console.log("BlogsPage - spinner check")
-    if (spinnerActive) {
-      ContainerSpinnerEnable()
-    } else {
-      ContainerSpinnerDisable()
-    }
-  }, [spinnerActive]);
-
   function getAPIData() {
     console.log("API DATA")
     let tag_ids = selectedTags.map((v) => v.id);
@@ -93,9 +76,6 @@ const BlogsPage = (props) => {
     tag_ids.forEach((tagId) => {
       q.append('search[tag_ids][]', tagId);
     });
-
-    // q.set("filters[]", '{name: "first", value: "1"}');
-    // q.append("filters[]", '{name: "second", value: "2"}');
 
     return axios.get(
       `${API_PATH}?${q.toString()}`,
@@ -125,29 +105,43 @@ const BlogsPage = (props) => {
     .then((response) => response.data)
   }
 
-  // // init blogs on page load
-  // // - appears to not be needed. The page listener is triggered on load.
-  // useEffect(() => {
-  //   fetchTableData()
-  // }, []);
 
-  // update blogs on page change (also updates on page load)
-  useEffect(() => {
-    console.log("PAGE LISTENER")
-    fetchTableData()
-  }, [page]);
 
-  // reset page on tag change
+  // call spinner fcts when spinner state changes.
   useEffect(() => {
-    // if page already 1, then manually fetch
+    console.log("BlogsPage - spinner check")
+    if (spinnerActive) {
+      ContainerSpinnerEnable()
+    } else {
+      ContainerSpinnerDisable()
+    }
+  }, [spinnerActive]);
+
+  useEffect(() => {
+    console.log("FIRST LOAD")
+    setFirstLoad(true)
+  }, []);
+
+  // When selecting tags, if not on page one, merely change to page 1 for refresh
+  // - would need to anyway
+  useEffect(() => {
     if (page == 1) {
       fetchTableData();
     } else {
-      setPage(1);
+      setPage(1)
     }
   }, [selectedTags]);
 
+  useEffect(() => {
+    console.log('fetchTableData - callback')
+    // Kludge: Without this line, component will sometimes NOT
+    //  pull correct page number from URL.
+    setPage(page)
+    fetchTableData();
+  }, [firstLoad, page]);
+
   const fetchTableData = () => {
+    console.log('fetchTableData')
     getAPIMeta().then((meta) => {
       console.log("META")
       console.log(meta)
@@ -170,7 +164,6 @@ const BlogsPage = (props) => {
 
   const handleChangePage = (currentPage) => {
     if (page !== currentPage) {
-      // setSpinnerActive(true)
       setPage(parseInt(currentPage));
     }
   };
@@ -203,7 +196,6 @@ const BlogsPage = (props) => {
 
         </div>
         <div className="col col-md-5 upper-pagination">
-          page: {page }
           {totalPages > 1 && <Pagination page={page} pages={totalPages} handleChangePage={handleChangePage} />}
         </div>
       </div>
