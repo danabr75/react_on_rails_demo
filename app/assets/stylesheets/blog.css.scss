@@ -1,0 +1,53 @@
+/* Styling for individual articles */
+.article {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Styling for article titles */
+.article-title {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    a {
+      color: #333 !important;
+      text-decoration: none;
+    }
+}
+
+/* Styling for article bodies */
+.article-body {
+    font-size: 1rem;
+    color: #666;
+}
+
+
+/* Not able to set 'form-control' class directly on Tag search input */
+#search_input {
+  width: 100%;
+}
+
+.tag-button {
+    margin-left: 1vh;
+    display: inline-block;
+    /*  default  */
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Text color */
+    padding: 5px 10px; /* Adjust padding to control button size */
+    border-radius: 11px 30px 30px 11px !important;
+    cursor: pointer;
+    &.tag-platform {
+      background-color:  red;
+    }
+    &.tag-genre {
+      background-color: green;
+    }
+}
+/* very small screen  */
+@media (max-width: 325px) {
+  .additional-tags {
+    display: none;
+  }
+}

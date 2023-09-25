@@ -14,19 +14,39 @@ import Multiselect from 'multiselect-react-dropdown';
 
 // import queryString from 'query-string';
 // const queryString = require('query-string');
+let count = 0
 
 const BlogsPage = (props) => {
+  console.log("BlogsPage")
+  console.log(count)
+  
   const API_PATH = "/api/v1/blogs"
+
+  if (count > 0){
+    // // return null;
+    // const customError = new Error('This is a custom error message');
+    // // Access the stack trace
+    // const stackTrace = customError.stack;
+    // console.error('Stack trace:', stackTrace);
+  }
+
+  count = count + 1
 
   // get current page params
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const initialPage = searchParams.has('page') ? parseInt(searchParams.get('page')) : undefined;
+  console.log("FOUND INITIAL PAGE")
+  console.log(initialPage)
 
   // TODO support URL search
   const initialSearch = searchParams.get('initialSearch')
 
+  console.log(page)
   const [page, setPage] = useState(initialPage || 1);
+
+  console.log("SETTING PAGE HERE")
+  console.log(page)
   const [totalBlogsCount, setTotalBlogsCount] = useState(1);
   const perPage = 30;
   const [totalPages, setTotalPages] = useState(1);
@@ -82,7 +102,10 @@ const BlogsPage = (props) => {
       {
         headers: {Accept: 'application/json'},
       }
-    ).then((response) => response.data)
+    ).then((response) => {
+      console.log('API DATA END')
+      return response.data
+    })
   }
 
   function getAPIMeta() {
@@ -110,6 +133,7 @@ const BlogsPage = (props) => {
 
   // update blogs on page change (also updates on page load)
   useEffect(() => {
+    console.log("PAGE LISTENER")
     fetchTableData()
   }, [page]);
 
@@ -154,19 +178,32 @@ const BlogsPage = (props) => {
   return (
     <>
       <div className="row">
-        <div className="col d-flex flex-grow-1  align-items-center">
+        <div className="col col-md-2 d-flex align-items-center">
           <h3 className=" ">Blogs</h3>
         </div>
-        <div className="col d-flex flex-grow-1 align-items-center">
-          <Multiselect
-            options={tags} // Options to display in the dropdown
-            selectedValues={selectedTags} // Preselected value to persist in dropdown
-            onSelect={onSelect} // Function will trigger on select event
-            onRemove={onRemove} // Function will trigger on remove event
-            displayValue="name" // Property name to display in the dropdown options
-          />
+        <div className="col col-md-5 d-flex align-items-center">
+
+          <form className="form-inline row">
+            <div className="form-group col d-flex align-items-center">
+              <input className="form-control" type="search" placeholder="Search" id="example-search-input"/>
+            </div>
+            <div className="form-group col d-flex align-items-center">
+              <Multiselect
+                className="form-control"
+                options={tags} // Options to display in the dropdown
+                selectedValues={selectedTags} // Preselected value to persist in dropdown
+                onSelect={onSelect} // Function will trigger on select event
+                onRemove={onRemove} // Function will trigger on remove event
+                displayValue="name" // Property name to display in the dropdown options
+                placeholder="Tags"
+              />
+            </div>
+          </form>
+
+
         </div>
-        <div className="col upper-pagination">
+        <div className="col col-md-5 upper-pagination">
+          page: {page }
           {totalPages > 1 && <Pagination page={page} pages={totalPages} handleChangePage={handleChangePage} />}
         </div>
       </div>
@@ -177,18 +214,23 @@ const BlogsPage = (props) => {
               <h2 className="article-title col"><Link to={'/game_blogs/' + blog.attributes.id}>{blog.attributes.title}</Link></h2>
               <div className="col">
                 <div className="float-end">
-                (
-                {blog.attributes.platform_tags_limited.map((platform) => (
-                  <span key={platform.id}>
-                    {platform.name}
+                  {blog.attributes.platform_tags_limited.map((platform) => (
+                    <span key={platform.id} className="tag-button tag-platform">
+                      {platform.name}
+                    </span>
+                  ))}
+                  {blog.attributes.genre_tags.map((genre) => (
+                    <span key={genre.id} className="tag-button tag-genre">
+                       {genre.name}
+                    </span>
+                  ))}
+                  <span className="additional-tags">
+                    {blog.attributes.uncategorized_tags.map((tag) => (
+                      <span key={tag.id} className="tag-button">
+                         {tag.name}
+                      </span>
+                    ))}
                   </span>
-                ))}
-                {blog.attributes.genre_tags.map((genre) => (
-                  <span key={genre.id}>
-                     {' '}| {genre.name}
-                  </span>
-                ))}
-                )
                 </div>
               </div>
             </div>

@@ -1,0 +1,11 @@
+.upper-pagination {
+  .rails-pagination {
+    float: right !important;
+  }
+}
+/*small screen*/
+@media (max-width: 767px) {
+  .upper-pagination {
+    display: none;
+  }
+}
