@@ -37,9 +37,11 @@ import HelloWorld from '../components/hello_world.jsx';
 import Home from '../components/home.jsx';
 import Error from '../components/error.jsx';
 
+import SideBar from '../components/sidebar.jsx';
 
-// import React, {useState, useEffect} from 'react';
-import React from 'react';
+
+import React, {useState, useEffect} from 'react';
+// import React from 'react';
 import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
 // import Navigation from '../components/navigation';
@@ -61,28 +63,37 @@ import {
 } from "react-router-dom";
 
 const App = () => {
+  // Right-hand Sidebar Logic
+  const [sidebarOpen, setSideBarOpen] = useState(false);
+  const handleViewSidebar = () => {
+    setSideBarOpen(!sidebarOpen);
+  };
+
   return (
-    <Router>
+      <Router>
+        <div>
+          {/*header*/}
+          { <NavBar/> }
+        </div>
 
-      <div>
-        {/*header*/}
-        { <NavBar/> }
-      </div>
-    
-      <Routes>
-        <Route path="/" element={<PageWrapper />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/game_blogs" element={<BlogsPage />} />
-          <Route path="/game_blogs/:id" element={<BlogPage />} />
-          <Route path="/login" element={<UserLogin />} />
-          <Route path="*" element={<Error />} />
-        </Route>
-      </Routes>
+        <span>
+          <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
+        </span>
 
-      <div>
-      {/*footer*/}
-      </div>
-    </Router>
+        <Routes>
+          <Route path="/" element={<PageWrapper />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/game_blogs" element={<BlogsPage />} />
+            <Route path="/game_blogs/:id" element={<BlogPage />} />
+            <Route path="/login" element={<UserLogin />} />
+            <Route path="*" element={<Error />} />
+          </Route>
+        </Routes>
+
+        <div>
+        {/*footer*/}
+        </div>
+      </Router>
   );
 };
 
