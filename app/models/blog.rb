@@ -1,6 +1,7 @@
 class Blog < ApplicationRecord
   # include Elasticsearch::Model
   # include Elasticsearch::Model::Callbacks
+  searchkick
 
   has_many :blogs_tags
   has_many :tags, through: :blogs_tags, source: :tag
@@ -15,15 +16,16 @@ class Blog < ApplicationRecord
 
   scope :order_by_created_desc, -> { order(created_at: :desc) }
 
-  def self.search options = {}
+  def self.full_search options = {}
     options ||= {}
     query = where({})
 
+
+    # Tag Search
     # Must match one
     # if options[:tag_ids].present?
     #   query = query.joins(:blogs_tags).where(blogs_tags: { tag_id: options[:tag_ids] })
     # end
-
     # Must match all
     if options[:tag_ids].present?
       filter_query = query.joins(:tags)
@@ -31,6 +33,17 @@ class Blog < ApplicationRecord
         .group(:id)
         .having("COUNT(DISTINCT tags.id) = ?", options[:tag_ids].length)
       query = query.where(id: filter_query)
+    end
+
+
+    # Attrib search (must be at END of other search params)
+    if options[:text].present?
+      searchkick_search = Blog.search(
+        options[:text],
+        where: {id: query.pluck(:id)},
+        fields: [:title, :body]
+      )
+      return searchkick_search
     end
 
     return query

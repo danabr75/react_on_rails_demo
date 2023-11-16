@@ -4,6 +4,23 @@
 ```
 brew update
 brew upgrade openssl
+
+# Failed to install, must be installed via Docker
+# https://www.elastic.co/guide/en/elasticsearch/reference/7.17/brew.html
+# brew tap elastic/tap
+# brew install elastic/tap/elasticsearch-full
+# brew services start elasticsearch-full
+
+# FAILED on OS X M2
+# Because docker is a system-level package, you cannot install it using brew install, and must use --cask instead
+brew install --cask docker
+brew install docker-machine
+brew install --cask virtualbox
+
+# OS X M2 required download from docker site: https://www.docker.com/get-started/
+
+# run the following to confirm that docker is running
+docker ps
 ```
 
 # install node.js
@@ -78,3 +95,14 @@ https://guides.rubyonrails.org/api_app.html
 https://medium.com/@alessandrahagarty/using-devise-for-authentication-in-a-react-rails-app-f6a0eb87fbd5
 https://blog.dennisokeeffe.com/blog/2022-03-07-part-1-setting-up-devise-with-rails-7
 - Note: this is for Rails 7
+
+
+# Running with Docker
+- src: https://semaphoreci.com/community/tutorials/dockerizing-a-ruby-on-rails-application
+- necessary for searchkick, on OS X
+```
+docker build -t demoreact -f Dockerfile.rails .
+# docker-compose up
+# docker-compose down
+docker run -p 3000:80 demoreact
+```

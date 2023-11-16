@@ -5,6 +5,8 @@ ruby '3.2.1'
 
 gem "jsonapi-serializer"
 
+
+
 gem 'devise'
 gem 'devise-async'
 gem 'devise_invitable'
@@ -15,8 +17,14 @@ gem 'cancancan_resource_controller'
 gem 'will_paginate'
 
 # Use after docker: https://github.com/elastic/elasticsearch-rails/tree/main
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
+# gem 'elasticsearch-model'
+# gem 'elasticsearch-rails'
+
+# https://github.com/ankane/searchkick
+gem "searchkick"
+
+gem "elasticsearch"   # select one
+gem "opensearch-ruby" # select one
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.8'

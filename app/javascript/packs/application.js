@@ -94,4 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <App />
   );
   // Other ReactDOM operations or component rendering go here
+
+  // adding bootstrap 5 classes to imported components; ex: Multiselect
+  $('.searchBox').addClass('form-control')
 });

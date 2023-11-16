@@ -186,7 +186,8 @@ const BlogsPage = (props) => {
             </div>
             <div className="form-group col d-flex align-items-center">
               <Multiselect
-                className="form-control"
+                // doesn't match stylings of other inputs
+                // className="form-control"
                 options={tags} // Options to display in the dropdown
                 selectedValues={selectedTags} // Preselected value to persist in dropdown
                 onSelect={onSelect} // Function will trigger on select event

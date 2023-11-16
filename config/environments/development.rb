@@ -2,6 +2,8 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
 
+  # docker, src: https://semaphoreci.com/community/tutorials/dockerizing-a-ruby-on-rails-application
+  config.hosts << "drkiq"
 
   config.assets.compile = true
 

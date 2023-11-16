@@ -5,7 +5,7 @@ class Api::V1::BlogsController < Api::V1::ApiAbstractController
   def meta
     authorize! :index, @resource_class
     render json: {
-      total_count: @resource_class.search(params[:search]).count,
+      total_count: @resource_class.full_search(params[:search]).count,
       tags: TagSerializer.new(Tag.blog_applicable, { is_collection: true }).serializable_hash[:data].collect{ |v| v[:attributes] },
     }, status: :ok
   end
@@ -18,7 +18,7 @@ class Api::V1::BlogsController < Api::V1::ApiAbstractController
   protected
 
   def index_resource_query resource_query
-    resource_query = resource_query.search(params[:search])
+    resource_query = resource_query.full_search(params[:search])
     # resource_query = resource_query.includes(:tags)
     resource_query = resource_query.order_by_created_desc
     return resource_query
