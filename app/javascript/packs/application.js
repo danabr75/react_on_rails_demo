@@ -65,8 +65,10 @@ import {
 const App = () => {
   // Right-hand Sidebar Logic
   const [sidebarOpen, setSideBarOpen] = useState(false);
-  const handleViewSidebar = () => {
+  var activeComponentName = undefined;
+  const handleViewSidebar = (sidebarName) => {
     setSideBarOpen(!sidebarOpen);
+    activeComponentName = sidebarName;
   };
 
   return (
@@ -77,7 +79,7 @@ const App = () => {
         </div>
 
         <span>
-          <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
+          <SideBar isOpen={sidebarOpen} activeComponentName={activeComponentName} toggleSidebar={handleViewSidebar} />
         </span>
 
         <Routes>
