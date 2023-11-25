@@ -88,3 +88,12 @@ input {
   align-items: center;
 }
 
+/* Only reserve margin-right for tabs if on large screen */
+@media (min-width: 767px) {
+  #root-container {
+  /*  padding-right: calc(var(--bs-gutter-x) * .5) !important;*/
+  /*  padding-right: min(70px, calc(var(--bs-gutter-x) * .5));*/
+  /* ideally this would be margin-right-min, but not a thing  */
+    margin-right: 80px !important;
+  }
+}

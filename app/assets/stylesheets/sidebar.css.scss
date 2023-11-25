@@ -1,20 +1,85 @@
-header {
+.sidebar-tabs {
   z-index: 101;
   position: fixed;
   height: 60px;
   position: fixed;
-  top: 50%;
-  width: 50px;
+  top: 30%;
+  width: 70px;
   right: 0;
   transition: right 0.3s ease-in-out;
 }
-.header-toggle-content {
-  position: relative;
+
+.sidebar-tab {
+  button {
+    .tab-text {
+      width: 100%;
+    }
+  }
 }
 
-.sidebar-header.open {
-  right: -50px;
+#tab-sponsor {
+  button {
+   background-color: red;
+   border-color: red;
+  }
 }
+
+#tab-test {
+  button {
+   background-color: purple;
+   border-color: purple;
+  }
+}
+
+.tab-text {
+}
+
+/* SMALL TAB LOGIC */
+/* Only use small tabs if on small screen */
+@media (max-width: 766px) {
+  .sidebar-tabs {
+    width: 30px;
+  }
+
+  .sidebar-tab {
+    .tab-text {
+      display: none;
+    }
+  }
+
+  .sidebar-header.open {
+    right: -30px;
+  }
+}
+
+
+/* LARGE TAB LOGIC */
+/* Only use large tabs if on large screen */
+@media (min-width: 767px) {
+  .sidebar-tabs {
+    width: 70px;
+  }
+}
+
+/* Only reserve large tabs if on large screen */
+@media (min-width: 767px) {
+  .sidebar-tab {
+    width: 70px;
+  }
+}
+
+/* Only use large tabs if on large screen */
+@media (min-width: 767px) {
+  .sidebar-header.open {
+    right: -70px;
+  }
+}
+
+
+.header-toggle-content {
+/*  position: relative;*/
+}
+
 
 /* container - need to scroll within maybe, eventually */
 .sidebar {
