@@ -79,7 +79,7 @@ const App = () => {
         </div>
 
         <span>
-          <SideBar isOpen={sidebarOpen} activeComponentName={activeComponentName} toggleSidebar={handleViewSidebar} />
+          <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
         </span>
 
         <Routes>

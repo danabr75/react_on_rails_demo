@@ -3,7 +3,7 @@ import React from 'react';
 const SidebarSponsor = () => {
 
   return (
-    <div>
+    <div id='tab-sponsor'>
       <div> SPONSOR </div>
     </div>
   );

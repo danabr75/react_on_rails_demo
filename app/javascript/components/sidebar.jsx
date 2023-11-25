@@ -7,16 +7,22 @@ const SideBar = props => {
   const sidebarClass = props.isOpen ? "open" : "";
   const sidebarHeaderClass = props.isOpen ? "sidebar-header open" : "sidebar-header";
 
-  const [componentToRender, setComponentToRender] = useState(<SidebarTeam />);
+  const [componentToRender, setComponentToRender] = useState(<SidebarTeam toggleSidebar={props.toggleSidebar} />);
+  
+  const [activeComponentName, setActiveComponentName] = useState('tab-team');
 
   const sidebarChange = (sidebarName) => {
     if (sidebarName == 'sponsor') {
-      setComponentToRender(<SidebarSponsor />)
+      setActiveComponentName('tab-sponsor')
+      setComponentToRender(<SidebarSponsor toggleSidebar={props.toggleSidebar} />)
     } else if (sidebarName == 'test') {
-      setComponentToRender(<SidebarTest />)
+      setActiveComponentName('tab-test')
+      setComponentToRender(<SidebarTest toggleSidebar={props.toggleSidebar} />)
     } else {
-      setComponentToRender(<SidebarTeam />)
+      setActiveComponentName('tab-team')
+      setComponentToRender(<SidebarTeam toggleSidebar={props.toggleSidebar} />)
     }
+    
     props.toggleSidebar(sidebarName);
   };
 
@@ -52,7 +58,7 @@ const SideBar = props => {
         </div>
       </div>
 
-      <div className={sidebarClass + ' sidebar bg-gradient'}>
+      <div id='sidebar-content' className={sidebarClass + ' sidebar bg-gradient ' + activeComponentName}>
         <div className="center-container">
           <button onClick={props.toggleSidebar} className="sidebar-toggle top btn btn-danger float-right">
             &gt;&gt;
@@ -60,6 +66,7 @@ const SideBar = props => {
         </div>
         
         {componentToRender}
+
         <div className="center-container">
           <button onClick={props.toggleSidebar} className="sidebar-toggle bottom btn btn-danger float-right">
             &gt;&gt;
