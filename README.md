@@ -64,11 +64,12 @@ rails webpacker:install:react
 rails generate react:install
 ```
 
+# How to Run
 
-# (Dev) Run webpacker to compile assets on the fly
+## (Dev) Run webpacker to compile assets on the fly
 bin/webpack-dev-server
 
-# Run server
+## Run server
 rails s
 
 # Generating new react components

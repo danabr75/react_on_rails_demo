@@ -22,7 +22,7 @@ module DemoReact
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.api_only = true
+    config.api_only = false
     
     config.autoload_paths += %W(#{config.root}/app/serializers)
   end

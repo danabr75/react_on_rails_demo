@@ -3,7 +3,6 @@ import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios 
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
-import Blogs from '../components/blogs.jsx';
 import { useLocation, Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 

@@ -26,7 +26,6 @@ ActiveStorage.start()
 // Pages
 import BlogsPage from '../pages/blogs_page.jsx';
 import BlogPage from '../pages/blog_page.jsx';
-// import Blogs from '../components/blogs.jsx';
 
 
 // Components
@@ -72,30 +71,30 @@ const App = () => {
   };
 
   return (
-      <Router>
-        <div>
-          {/*header*/}
-          { <NavBar/> }
-        </div>
+    <Router>
+      <div>
+        {/*header*/}
+        { <NavBar/> }
+      </div>
 
-        <span>
-          <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
-        </span>
+      <span>
+        <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
+      </span>
 
-        <Routes>
-          <Route path="/" element={<PageWrapper />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/game_blogs" element={<BlogsPage />} />
-            <Route path="/game_blogs/:id" element={<BlogPage />} />
-            <Route path="/login" element={<UserLogin />} />
-            <Route path="*" element={<Error />} />
-          </Route>
-        </Routes>
+      <Routes>
+        <Route path="/" element={<PageWrapper />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/game_blogs" element={<BlogsPage />} />
+          <Route path="/game_blogs/:id" element={<BlogPage />} />
+          <Route path="/login" element={<UserLogin />} />
+          <Route path="*" element={<Error />} />
+        </Route>
+      </Routes>
 
-        <div>
-        {/*footer*/}
-        </div>
-      </Router>
+      <div>
+      {/*footer*/}
+      </div>
+    </Router>
   );
 };
 

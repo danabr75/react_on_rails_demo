@@ -33,6 +33,11 @@
 
 .tab-text {
 }
+#sidebar-content {
+  min-height: 15em;
+  height: 70vh; /* Set the height to fill the viewport */
+  overflow: auto; /* Add a scroll if the content overflows */
+}
 
 /* SMALL TAB LOGIC */
 /* Only use small tabs if on small screen */

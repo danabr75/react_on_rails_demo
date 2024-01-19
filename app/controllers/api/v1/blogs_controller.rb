@@ -1,7 +1,6 @@
 class Api::V1::BlogsController < Api::V1::ApiAbstractController
   # before_action :index_dev, if: -> { Rails.env.development? }
 
-
   def meta
     authorize! :index, @resource_class
     render json: {

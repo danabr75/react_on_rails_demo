@@ -21,6 +21,8 @@ const NavBar = () => {
     }
   }, [location]);
 
+  const isLoggedIn = window.currentUser !== undefined;
+
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-primary bg-gradient rounded-pill rounded-top border border-3">
       <div className="container-fluid">
@@ -37,11 +39,30 @@ const NavBar = () => {
             </li>
           </ul>
 
-          <ul className="navbar-nav float-end">
-            <li className="nav-item">
-              <NavLink className="nav-link" activeclassname="active" to="/login">Login</NavLink>
-            </li>
-          </ul>
+          {isLoggedIn ? (
+            <ul className="navbar-nav float-end">
+              <li className="nav-item">
+                <a href="/users/sign_out" data-method="delete">
+                  Sign Out
+                </a>
+              </li>
+            </ul>
+          ) : (
+            <ul className="navbar-nav float-end">
+              <li className="nav-item">
+                <NavLink className="nav-link" activeclassname="active" to="/login">Login</NavLink>
+              </li>
+            </ul>
+          )}
+
+          <div>
+            {isLoggedIn ? (
+              <p>User is logged in</p>
+            ) : (
+              <p>User is not logged in</p>
+            )}
+          </div>
+
         </div>
       </div>
     </nav>

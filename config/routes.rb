@@ -31,8 +31,15 @@ Rails.application.routes.draw do
           get :meta
         end
       end
+      resources :members do
+        collection do
+          get :public_index
+        end
+      end
     end
   end
+
+  resources :members
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'welcome#index'

@@ -16,6 +16,7 @@ class Ability
     #Temp permissions, for testing
     can :manage, :all# if Rails.env.development?
     can :index, Blog
+    can :public_index, Member
 
     # MODEL_ABILITIES.each do |filename|
     #   module_klass = File.basename(filename, '.rb').camelize.constantize
