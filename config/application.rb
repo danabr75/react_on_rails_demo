@@ -25,5 +25,6 @@ module DemoReact
     config.api_only = false
     
     config.autoload_paths += %W(#{config.root}/app/serializers)
+    config.app_name = "Beyond Embarrassment Studios"
   end
 end

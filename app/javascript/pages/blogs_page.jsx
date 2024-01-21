@@ -16,11 +16,14 @@ import LoadingSpinner,{
 // src: https://www.npmjs.com/package/multiselect-react-dropdown
 import Multiselect from 'multiselect-react-dropdown';
 
+import { useAuth } from '../components/auth_context.jsx';
+
 // import queryString from 'query-string';
 // const queryString = require('query-string');
 let count = 0
 
 const BlogsPage = (props) => {
+  const { token } = useAuth();
   console.log("BlogsPage")
   const [firstLoad, setFirstLoad] = useState(true);
   console.log(count)
@@ -83,10 +86,19 @@ const BlogsPage = (props) => {
       q.append('search[tag_ids][]', tagId);
     });
 
+
+    
+    console.log("BLOGS PAGE")
+    console.log("T:")
+    console.log(token)
+
     return axios.get(
       `${API_PATH}?${q.toString()}`,
       {
-        headers: {Accept: 'application/json'},
+        headers: {
+          Accept: 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
       }
     ).then((response) => {
       console.log('API DATA END')

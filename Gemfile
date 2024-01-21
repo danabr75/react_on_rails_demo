@@ -5,7 +5,7 @@ ruby '3.2.1'
 
 gem "jsonapi-serializer"
 
-
+gem 'bootstrap'
 
 gem 'devise'
 gem 'devise-async'
@@ -13,6 +13,7 @@ gem 'devise_invitable'
 
 gem 'cancancan'
 gem 'cancancan_resource_controller'
+gem 'omniauth'
 
 gem 'will_paginate'
 

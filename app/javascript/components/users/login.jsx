@@ -1,142 +1,80 @@
+// Works, but Devise's devise_token_auth is bugged and useless on back-end
+import React, { useState } from 'react';
+import { useAuth } from '../../components/auth_context.jsx';
+import axios from 'axios';
 
-// import React from 'react'
-// import { Button, Checkbox, Form } from 'semantic-ui-react'
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { token, updateToken } = useAuth();
 
-// const UserLogin = () => (
-//   <Form>
-//     <Form.Field>
-//       <label>Email</label>
-//       <input placeholder='' />
-//     </Form.Field>
-//     <Form.Field>
-//       <Checkbox label='I agree to the Terms and Conditions' />
-//     </Form.Field>
-//     <Button type='submit'>Submit</Button>
-//   </Form>
-// )
+  const handleLogin = async () => {
+    const url = "users/sign_in";
 
-// export default UserLogin
-
-import React from "react";
-import {Link} from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
-class UserLogin extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //     email: props.post.email,
-    //     password: props.post.password
+    // const body = {
+    //   user: {
+    //     email: email,
+    //     // description: description.replace(/\n/g, "<br> <br>")
+    //     password: password
+    //   }
     // };
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.stripHtmlEntities = this.stripHtmlEntities.bind(this);
-  }
-
-  stripHtmlEntities(str) {
-    return str
-      // return String(str)
-      //     .replace(/</g, "&lt;")
-      //     .replace(/>/g, "&gt;");
-  }
-
-  onChange(event) {
-      this.setState({ [event.target.name]: event.target.value });
-  }
-
-  onSubmit(event) {
-    event.preventDefault();
-    const url = "users/sign_in";
-    console.log("onSubmit")
-    console.log(this.state)
-    console.log(this.state['user[email]'])
-    // {user[email]: 'benrdana@gmail.com', user[password]: 'password'}
-    // const { user[email], password } = this.state;
-    if (this.state['user[password]'].length === 0 || this.state['user[email]'].length === 0)
-        return;
-
     const body = {
-      user: {
-        email: this.state['user[email]'],
+        email: email,
         // description: description.replace(/\n/g, "<br> <br>")
-        password: this.state['user[password]']
-      }
+        password: password
     };
 
-    
+    try {
+      const response = await axios.post(url, body);
 
-    // const token = document.querySelector('meta[name="csrf-token"]').content;
-    fetch(url, {
-        method: "POST",
-        headers: {
-            // "X-CSRF-Token": token,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(body)
-    })
-    .then(response => {
-        if (response.ok) {
-            
-            // const navigate = useNavigate();
+      const authToken = response.data.authentication_token;
 
-            // navigate("/");
-          // this.props.history.push('/');
-          // const history = useHistory();
-          // history.push('/');
+      // Update the token using the context
+      updateToken(authToken);
+    console.log("authToken")
+    console.log("T:")
+    console.log(authToken)
+    console.log("data")
+    console.log(response.data)
+      // back to home
+      //window.location.replace('/')
 
-          // return <Redirect to='/'  />
-          // window.RedirectTimeout('/')
-          window.location.replace('/')
-            // return response.json();
-        } else {
-          console.log(response)
-          throw new Error("Network response was not ok.");
-        }
-    })
-    // .then(response => this.props.history.push(`/new_task/${response.id}`))
-    .catch(error => console.log(error.message));
-  }
+      // Redirect or perform other actions after successful login
+    } catch (error) {
+      console.error('Login failed', error);
+    }
+  };
 
-  render() {
-    return (
-      <>
-        <div className="row">
-          <div className="col-sm-12 col-lg-6 offset-lg-3">
-            <h1 className="font-weight-normal mb-5">
-                User Login
-            </h1>
-            <form onSubmit={this.onSubmit}>
-              <div className="form-group">
-                <label htmlFor="userEmail">Email</label>
-                <input
-                  type="email"
-                  name="user[email]"
-                  // value={this.state.email}
-                  className="form-control"
-                  required
-                  onChange={this.onChange}
-                />
-              </div>
-              <label htmlFor="description">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                name="user[password]"
-                // value={this.state.password}
-                rows="5"
-                required
-                onChange={this.onChange}
-              />
-              <button type="submit" value="Save" className="btn btn-primary mt-3">
-                Login
-              </button>
-            </form>
-          </div>
-        </div>
-      </>
-    );
-  }
-}
+  // const handleApiRequest = async () => {
+  //   try {
+  //     // Make an API request using the stored token
+  //     const response = await axios.get('/api/data', {
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`,
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
 
-export default UserLogin;
+  //     // Handle the API response
+  //     console.log('API response:', response.data);
+  //   } catch (error) {
+  //     console.error('API request failed', error);
+  //   }
+  // };
+
+  return (
+    <div>
+      <h1>Login</h1>
+      <label>Email:</label>
+      <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <br />
+      <label>Password:</label>
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <br />
+      <button onClick={handleLogin}>Login</button>
+    </div>
+  );
+};
+
+export default Login;

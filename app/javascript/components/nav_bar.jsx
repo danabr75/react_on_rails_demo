@@ -45,12 +45,18 @@ const NavBar = () => {
                 <a href="/users/sign_out" data-method="delete">
                   Sign Out
                 </a>
+                <a href="/users/sign_out" data-method="delete">
+                  Manage
+                </a>
               </li>
             </ul>
           ) : (
             <ul className="navbar-nav float-end">
               <li className="nav-item">
-                <NavLink className="nav-link" activeclassname="active" to="/login">Login</NavLink>
+                {/* <NavLink className="nav-link" activeclassname="active" to="/login">Login</NavLink> */}
+                <a href="/users/sign_in">
+                  Sign in
+                </a>
               </li>
             </ul>
           )}

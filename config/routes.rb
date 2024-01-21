@@ -7,7 +7,6 @@
 # - but rails does not support that ability.
 
 Rails.application.routes.draw do
-  # devise_for :users
   devise_for(
     :users,
     controllers: {
@@ -40,6 +39,8 @@ Rails.application.routes.draw do
   end
 
   resources :members
+
+  get '/admin_index', to: 'welcome#admin_index', as: :admin_index
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'welcome#index'
