@@ -1,7 +1,5 @@
 class WelcomeController < ApplicationController
   respond_to :html
-  # before_action :authenticate_user!, except: [:index]
-  layout "management_layout", only: :admin_index
   layout "application", only: :index
 
   def index
@@ -9,9 +7,9 @@ class WelcomeController < ApplicationController
 
   def admin_index
     if current_user
-      super
+      render :admin_index, layout: 'management_application'
     else
-      render :unauthorized
+      redirect_to root_path
     end
   end
 end

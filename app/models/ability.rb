@@ -13,8 +13,17 @@ class Ability
   def initialize(user = nil, active_account = nil)
     user ||= User.new # guest user (not logged in)
 
-    #Temp permissions, for testing
-    can :manage, :all# if Rails.env.development?
+    # can :update, User, [:email, :role], {role: [nil, '']}
+
+    if user.role_names.include?(:admin)
+      can(:manage, User, [
+       :role_ids,
+       :email,
+      ])
+      can :manage, Role
+      can :manage, UserRole
+    end
+
     can :index, Blog
     can :public_index, Member
 

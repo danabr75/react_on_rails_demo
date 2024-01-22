@@ -24,7 +24,11 @@ module DemoReact
     # config.eager_load_paths << Rails.root.join("extras")
     config.api_only = false
     
-    config.autoload_paths += %W(#{config.root}/app/serializers)
+    config.autoload_paths += %W(
+      #{config.root}/app/serializers
+      #{config.root}/app/form_structures
+      #{config.root}/lib/form_generator
+    )
     config.app_name = "Beyond Embarrassment Studios"
   end
 end

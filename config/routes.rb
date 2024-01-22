@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :members
+  resources :users
 
   get '/admin_index', to: 'welcome#admin_index', as: :admin_index
 

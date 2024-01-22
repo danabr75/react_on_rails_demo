@@ -3,7 +3,7 @@
 class Users::SessionsController < Devise::SessionsController
   clear_respond_to
   respond_to :json, :html
-  layout "devise_layout"
+  layout "devise_application"
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

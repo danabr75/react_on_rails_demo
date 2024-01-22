@@ -1,0 +1,34 @@
+<% readonly ||= false %>
+<% puts "FORM - readyonly: #{readonly}" %>
+
+
+<%= form_for @resource do |f| %>
+  <div>
+    structure:
+    <%=
+      @resource_class.accepts_nested_attributes_tree(
+        current_user, action_name
+      )
+    %>
+  </div>
+
+  <div>
+    <%=
+      raw(
+        ERB.new(
+          FormGenerator.new(
+            @resource_class,
+            current_user,
+            @resource_class.accepts_nested_attributes_tree(
+              current_user, action_name
+            ),
+            {readonly: readonly}
+          ).generate_form
+        ).result(binding)
+      )
+    %>
+  </div>
+  <% unless readonly %>
+    <%= f.submit %>
+  <% end %>
+<% end %>

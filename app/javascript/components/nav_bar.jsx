@@ -42,11 +42,11 @@ const NavBar = () => {
           {isLoggedIn ? (
             <ul className="navbar-nav float-end">
               <li className="nav-item">
-                <a href="/users/sign_out" data-method="delete">
-                  Sign Out
-                </a>
-                <a href="/users/sign_out" data-method="delete">
+                <a class="btn btn-info" href="/admin_index">
                   Manage
+                </a>
+                 <a class="btn btn-danger" href="/users/sign_out" data-method="delete">
+                  Sign Out
                 </a>
               </li>
             </ul>
@@ -60,14 +60,6 @@ const NavBar = () => {
               </li>
             </ul>
           )}
-
-          <div>
-            {isLoggedIn ? (
-              <p>User is logged in</p>
-            ) : (
-              <p>User is not logged in</p>
-            )}
-          </div>
 
         </div>
       </div>
