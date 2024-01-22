@@ -19,6 +19,7 @@
           FormGenerator.new(
             @resource_class,
             current_user,
+            action_name,
             @resource_class.accepts_nested_attributes_tree(
               current_user, action_name
             ),

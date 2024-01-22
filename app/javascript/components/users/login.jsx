@@ -1,4 +1,5 @@
 // Works, but Devise's devise_token_auth is bugged and useless on back-end
+// - Putting this on the back burner for the time being
 import React, { useState } from 'react';
 import { useAuth } from '../../components/auth_context.jsx';
 import axios from 'axios';

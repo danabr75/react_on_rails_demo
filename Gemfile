@@ -12,7 +12,7 @@ gem 'devise-async'
 gem 'devise_invitable'
 
 gem 'cancancan'
-gem 'cancancan_resource_controller', '~> 1.1.0'
+gem 'cancancan_resource_controller', '~> 1.1.1'
 gem 'omniauth'
 
 gem 'will_paginate'

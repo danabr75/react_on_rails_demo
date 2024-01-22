@@ -34,6 +34,13 @@ class User < ApplicationRecord
     current_ability.cannot?(*args)
   end
 
+
+  # # Override the initialize method
+  # def initialize(*args)
+  #   super(*args)
+  #   self.email = 'default_value' if !self.email.present?
+  # end
+
   private
 
   # def refresh_cached_variables

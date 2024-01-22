@@ -1,4 +1,5 @@
 // Works, but Devise's devise_token_auth is bugged and useless on back-end
+// - Putting this on the back burner for the time being
 import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
