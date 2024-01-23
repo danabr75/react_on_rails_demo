@@ -222,6 +222,9 @@ class FormGenerator
     "
       <%= f.label :#{association}, '#{input_name}'.camelize %>
       <%= f.file_field :#{association} #{@readonly ? ', disabled: true' : ''} %>
+      <%= image_tag @resource.#{association} if @resource.#{association}.attached? %>
+      <%#= image_tag(url_for(@resource.#{association})) %>
+      <%#= image_tag(@resource.#{association}) %>
     "
   end
   # END ATTACHMENT INPUTS

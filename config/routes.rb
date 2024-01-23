@@ -47,6 +47,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'welcome#index'
 
-  # Letting reactJS handle all routes
-  get '*path', to: 'welcome#index'
+  # Needed to exclude the ActiveStorage routes, else intercepted
+  constraints(/\/rails\/.*/) do
+    # Letting reactJS handle all routes
+    get '*path', to: 'welcome#index'
+  end
+
 end
