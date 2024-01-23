@@ -9,9 +9,26 @@
         <li class="nav-item">
           <%= link_to 'Member Welcome', root_path, class: 'nav-link' %>
         </li>
+
+        <% if can?(:index, User) %>
         <li class="nav-item">
           <%= link_to 'Users', users_path, class: 'nav-link' %>
         </li>
+        <% end %>
+
+        <% if can?(:index, Blog) %>
+        <li class="nav-item">
+          <%= link_to 'Blogs', blogs_path, class: 'nav-link' %>
+        </li>
+        <% end %>
+
+        <% if can?(:index, Member) %>
+          <li class="nav-item">
+            <%= link_to 'Team Members', members_path, class: 'nav-link' %>
+          </li>
+        <% end %>
+
+
         <!-- Add more menu items as needed -->
       </ul>
     </div>

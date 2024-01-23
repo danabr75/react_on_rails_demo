@@ -56,6 +56,8 @@ class FormGenerator
           stringified_fields << generate_datetime_input(input_name, assoc_or_attrib)
         elsif attrib_type == :integer
           stringified_fields << generate_integer_input(input_name, assoc_or_attrib)
+        elsif attrib_type == :boolean
+          stringified_fields << generate_boolean_input(input_name, assoc_or_attrib)
         else
           @errors << "FormGenerator - attrib type not supported: (#{attrib_type})"
         end
@@ -75,7 +77,9 @@ class FormGenerator
         else
           @errors << "FormGenerator - assoc type not supported: (#{assoc_type})"
         end
-
+      elsif model_class.reflect_on_all_attachments.collect{ |v| v.name.to_sym }.include?(input_name)
+        # only supporting a has_one attachment currently
+        stringified_fields << generate_attachment_input(assoc_or_attrib, assoc_or_attrib)
       else
         @errors << "FormGenerator - not assoc AND not attrib: (#{assoc_or_attrib})"
       end
@@ -87,14 +91,27 @@ class FormGenerator
 
     puts "FormGenerator: #{stringified_fields.join("\n")}"
 
-    stringified_fields.join("\n").html_safe
+    stringified_fields.join("<br/>").html_safe
   end
 
   private
 
-  # START FIELD INPUTS
   def association_type(attribute)
     @model_class.reflect_on_association(attribute)&.macro
+  end
+
+  # START FIELD INPUTS
+  def generate_boolean_input(input_name, attribute)
+    field_logic = []
+    field_logic << "f.check_box :#{input_name}"
+
+    if @readonly || !validate_permission?(input_name)
+      field_logic << "disabled: true"
+    end
+    """
+      <%= f.label :#{input_name} %>
+      <%= #{field_logic.join(', ')} %>
+    """
   end
 
   def generate_text_input(input_name, attribute)
@@ -125,7 +142,7 @@ class FormGenerator
 
   def generate_datetime_input(input_name, attribute)
     field_logic = []
-    field_logic << "f.datetime_local_field #{input_name}"
+    field_logic << "f.datetime_local_field :#{input_name}"
     if @readonly || !validate_permission?(input_name)
       field_logic << "disabled: true"
     end
@@ -199,6 +216,15 @@ class FormGenerator
     """
   end
   # END ASSOC INPUTS
+
+  # START ATTACHMENT INPUTS
+  def generate_attachment_input(input_name, association)
+    "
+      <%= f.label :#{association}, '#{input_name}'.camelize %>
+      <%= f.file_field :#{association} #{@readonly ? ', disabled: true' : ''} %>
+    "
+  end
+  # END ATTACHMENT INPUTS
 
   def association_class(attribute)
     @model_class.reflect_on_association(attribute)&.klass

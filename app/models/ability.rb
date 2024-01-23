@@ -22,6 +22,10 @@ class Ability
       ])
       can :manage, Role
       can :manage, UserRole
+
+      can :manage, Blog, [:title, :body]
+
+      can :manage, Member, [:first_name, :last_name, :public, :ordering, :avatar]
     end
 
     can :index, Blog

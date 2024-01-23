@@ -4,15 +4,6 @@
 
 <%= form_for @resource do |f| %>
   <div>
-    structure:
-    <%=
-      @resource_class.accepts_nested_attributes_tree(
-        current_user, action_name
-      )
-    %>
-  </div>
-
-  <div>
     <%=
       raw(
         ERB.new(
