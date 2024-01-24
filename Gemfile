@@ -28,6 +28,8 @@ gem "searchkick"
 gem "elasticsearch"   # select one
 gem "opensearch-ruby" # select one
 
+gem "aws-sdk-s3"
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.8'
 # Use sqlite3 as the database for Active Record
