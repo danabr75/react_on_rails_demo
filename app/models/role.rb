@@ -6,4 +6,13 @@ class Role < ApplicationRecord
   validates :name, presence: true, inclusion: { in: Role.valid_names.keys }, uniqueness: true
 
   has_many :users
+
+
+  def self.populate
+    valid_names.keys.each do |name|
+      puts "name:"
+      puts name.inspect
+      Role.find_or_create_by!(name: name)
+    end
+  end
 end

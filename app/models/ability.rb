@@ -25,7 +25,7 @@ class Ability
 
       can :manage, Blog, [:title, :body]
 
-      can :manage, Member, [:first_name, :last_name, :public, :ordering, :avatar]
+      can :manage, Member, [:first_name, :last_name, :public, :ordering, :avatar, :title, :alias]
     end
 
     can :index, Blog

@@ -1,18 +1,30 @@
 <h1><%= @resource_class.name %></h1>
 <%= link_to "New #{@resource_class.name}", new_polymorphic_path(@resource_class), class: 'btn btn-primary' %>
 
-<ul>
-  <% @resources.each do |resource| %>
-    <li>
+<table class="table table-striped">
+  <thead>
+    <tr>
       <% @resources_index_attribs.each do |index_attrib| %>
-        <%= resource.send(index_attrib) %>
+        <th scope="col"><%= index_attrib %></th>
       <% end %>
-      <% if can?(:show, @resource_class)%>
-        <%= link_to 'Show', polymorphic_path(resource), class: 'btn btn-primary' %>
-      <% end %>
-      <% if can?(:edit, @resource_class)%>
-        <%= link_to 'Edit', edit_polymorphic_path(resource), class: 'btn btn-primary' %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @resources.each do |resource| %>
+      <tr>
+        <% @resources_index_attribs.each do |index_attrib| %>
+        <td><%= resource.send(index_attrib) %></td>
+        <% end %>
+        <td>
+          <% if can?(:show, @resource_class)%>
+            <%= link_to 'Show', polymorphic_path(resource), class: 'btn btn-primary' %>
+          <% end %>
+          <% if can?(:edit, @resource_class)%>
+            <%= link_to 'Edit', edit_polymorphic_path(resource), class: 'btn btn-primary' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

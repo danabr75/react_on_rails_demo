@@ -64,15 +64,11 @@ const SideBar = props => {
             &gt;&gt;
           </button>
         </div>
-        
-        {componentToRender}
-
-        <div className="center-container">
-          <button onClick={props.toggleSidebar} className="sidebar-toggle bottom btn btn-danger float-right">
-            &gt;&gt;
-          </button>
+        <div id='inner-sidebar-content'>
+          {componentToRender}
         </div>
       </div>
+
     </>
   );
 };

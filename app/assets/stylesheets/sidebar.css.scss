@@ -33,10 +33,19 @@
 
 .tab-text {
 }
+
 #sidebar-content {
+  overflow-x: hidden;
   min-height: 15em;
   height: 70vh; /* Set the height to fill the viewport */
-  overflow: auto; /* Add a scroll if the content overflows */
+/*  overflow: auto; */
+  overflow: hidden;
+  #inner-sidebar-content {
+    min-height: 40vh;
+    height: 90%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
 
 /* SMALL TAB LOGIC */
@@ -133,9 +142,10 @@
     &.top {
       top: 5px;
       margin-top: 5px;
+/*      position: absolute;*/
     }
     &.bottom {
-      position: absolute;
+/*      position: absolute;*/
       bottom: 5px;
     }
   }

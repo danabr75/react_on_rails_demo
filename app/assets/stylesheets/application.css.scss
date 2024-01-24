@@ -49,13 +49,42 @@ body#body {
     border-radius: 0px 0px 30px 30px !important;
     height: auto;
   }
+  .tab-content {
+    h2.article-title {
+      font-size: 1.5rem;
+    }
+  }
 }
 
-/*small screen*/
-@media (max-width: 767px) {
+/* small screen*/
+@media only screen and (max-width: 767px) and (min-width: 525px) {
+  #root-container {
+/*    background-color: blue !important;*/
+  }
   #root-container {
     border-radius: 30px 30px 30px 30px !important;
     height: auto;
+  }
+  .tab-content {
+    h2.article-title {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+/* tiny screen*/
+@media (max-width: 524px) {
+  #root-container {
+/*    background-color: red !important;*/
+  }
+  #root-container {
+    border-radius: 30px 30px 30px 30px !important;
+    height: auto;
+  }
+  .tab-content {
+    h2.article-title {
+      font-size: 1rem;
+    }
   }
 }
 

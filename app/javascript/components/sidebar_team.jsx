@@ -44,9 +44,11 @@ const SidebarTeam = () => {
             <div className="row">
               <div className="col">
                   <h2 className="article-title">
-                    {member.attributes.full_name}
+                    {member.attributes.title}
+                    <br/>
+                    {member.attributes.public_name}
                   </h2>
-                  <img src={member.attributes.avatar_url} alt="Attached Image" width="100" />
+                  <img src={member.attributes.avatar_url} alt="Attached Image" width="100%" />
               </div>
             </div>
           </section>

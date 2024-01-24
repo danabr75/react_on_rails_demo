@@ -1,6 +1,7 @@
 # form_generator.rb
 class FormGenerator
-  attr_reader :model_class, :assocs_and_attribs, :current_user, :errors, :readonly, :current_ability, :action_name
+  attr_reader :model_class, :assocs_and_attribs, :current_user, :errors
+  attr_reader :readonly, :current_ability, :action_name, :styling
 
   def initialize(model_class, current_user, action_name, assocs_and_attribs, opts = {})
     @model_class = model_class
@@ -14,6 +15,7 @@ class FormGenerator
     puts "GENERAOTR: #{opts[:readonly]}"
     puts opts[:readonly].inspect
     @readonly = opts[:readonly] == true ? true : false
+    @styling = opts[:styling] ? opts[:styling] : :bootstrap5
   end
 
   # [:role_ids, :email, {:user_roles=>[]}, {:roles=>[]}]
@@ -23,7 +25,7 @@ class FormGenerator
     puts @assocs_and_attribs.inspect
 
     @assocs_and_attribs.each do |assoc_or_attrib|
-      puts "BEFORE - assoc_or_attrib: #{assoc_or_attrib.inspect}"
+      # puts "BEFORE - assoc_or_attrib: #{assoc_or_attrib.inspect}"
       if assoc_or_attrib.is_a?(Hash)
         if assoc_or_attrib.keys.length > 1
           raise Exception.new(
@@ -102,104 +104,224 @@ class FormGenerator
 
   # START FIELD INPUTS
   def generate_boolean_input(input_name, attribute)
-    field_logic = []
-    field_logic << "f.check_box :#{input_name}"
+    label_logic = []
+    label_logic << "f.label :#{input_name}"
+    if @styling == :bootstrap5
+      label_logic << "class: 'form-label'"
+    end
 
+    field_logic = []
+    field_class = ['boolean_input']
+    field_logic << "f.check_box :#{input_name}"
     if @readonly || !validate_permission?(input_name)
       field_logic << "disabled: true"
     end
+    if @styling == :bootstrap5
+      # messes up input
+      # field_class << 'form-control'
+    end
+    field_logic << "class: '#{field_class.join(' ')}'"
+
     """
-      <%= f.label :#{input_name} %>
+      <%= #{label_logic.join(', ')} %>
       <%= #{field_logic.join(', ')} %>
     """
   end
 
   def generate_text_input(input_name, attribute)
     puts "generate_text_input(#{input_name}, #{attribute})"
+    label_logic = []
+    label_logic << "f.label :#{input_name}"
+    if @styling == :bootstrap5
+      label_logic << "class: 'form-label'"
+    end
+
     field_logic = []
+    field_class = ['text_input']
     field_logic << "f.text_area :#{input_name}"
 
     # user.current_ability.permitted_attributes(action_name.to_sym, self)
     if @readonly || !validate_permission?(input_name)
       field_logic << "disabled: true"
     end
+    if @styling == :bootstrap5
+      field_class << 'form-control'
+    end
+    field_logic << "class: '#{field_class.join(' ')}'"
+
     """
-      <%= f.label :#{input_name} %>
+      <%= #{label_logic.join(', ')} %>
       <%= #{field_logic.join(', ')} %>
     """
   end
+
   def generate_string_input(input_name, attribute)
+    label_logic = []
+    label_logic << "f.label :#{input_name}"
+    if @styling == :bootstrap5
+      label_logic << "class: 'form-label'"
+    end
+
     field_logic = []
+    field_class = ['string_input']
     field_logic << "f.text_field :#{input_name}"
     if @readonly || !validate_permission?(input_name)
       field_logic << "disabled: true"
     end
+    if @styling == :bootstrap5
+      field_class << 'form-control'
+    end
+    field_logic << "class: '#{field_class.join(' ')}'"
+
     """
-      <%= f.label :#{input_name} %>
+      <%= #{label_logic.join(', ')} %>
       <%= #{field_logic.join(', ')} %>
     """
   end
 
   def generate_datetime_input(input_name, attribute)
+    label_logic = []
+    label_logic << "f.label :#{input_name}"
+    if @styling == :bootstrap5
+      label_logic << "class: 'form-label'"
+    end
+
     field_logic = []
+    field_class = ['datetime_input']
     field_logic << "f.datetime_local_field :#{input_name}"
     if @readonly || !validate_permission?(input_name)
       field_logic << "disabled: true"
     end
+    if @styling == :bootstrap5
+      field_class << 'form-control'
+    end
+    field_logic << "class: '#{field_class.join(' ')}'"
+
     """
-      <%= f.label :#{input_name} %>
+      <%= #{label_logic.join(', ')} %>
       <%= #{field_logic.join(', ')} %>
     """
   end
 
   def generate_integer_input(input_name, attribute)
+    label_logic = []
+    label_logic << "f.label :#{input_name}"
+    if @styling == :bootstrap5
+      label_logic << "class: 'form-label'"
+    end
+
     field_logic = []
+    field_class = ['integer_input']
     field_logic << "f.number_field :#{input_name}"
     if @readonly || !validate_permission?(input_name)
-      field_logic << "disabled: #{@readonly}"
+      field_logic << "disabled: true"
     end
+    if @styling == :bootstrap5
+      field_class << 'form-control'
+    end
+    field_logic << "class: '#{field_class.join(' ')}'"
+
+
     """
-      <%= f.label :#{input_name} %>
+      <%= #{label_logic.join(', ')} %>
       <%= #{field_logic.join(', ')} %>
     """
   end
   # END FIELD INPUTS
 
   # START ASSOC INPUTS
+  # i.e. input_name: role_ids, assocation: roles
   def generate_belongs_to_input(input_name, association)
     return '' unless validate_permission?(association)
+
+    label_logic = []
+    label_logic << "f.label :#{association}, '#{input_name}'.camelize"
+    if @styling == :bootstrap5
+      label_logic << "class: 'form-label'"
+    end
+
     assoc_class = association_class(input_name)
     options = assoc_class.all.map { |record| [record.name, record.id] }
 
+    field_logic = []
+    field_class = ['belongs_to_input']
+    field_logic << "f.collection_select :#{association}, options, :last, :first, prompt: true"
+    if @readonly || !validate_permission?(association)
+      field_logic << "disabled: true"
+    end
+    if @styling == :bootstrap5
+      field_class << 'form-select form-select-lg'
+    end
+    field_logic << "class: '#{field_class.join(' ')}'"
+
     """
-      <%= f.label :#{association}, '#{input_name}'.camelize %>
+      <%= #{label_logic.join(', ')} %>
       <% options = #{options} %>
-      <%= f.collection_select :#{association}, options, :last, :first, prompt: true #{@readonly ? ', disabled: true' : ''} %>
+      <%= #{field_logic.join(', ')} %>
     """
   end
 
   def generate_has_one_input(input_name, association)
     return '' unless validate_permission?(association)
+
+    label_logic = []
+    label_logic << "f.label :#{association}, '#{input_name}'.camelize"
+    if @styling == :bootstrap5
+      label_logic << "class: 'form-label'"
+    end
+
     assoc_class = association_class(input_name)
     options = assoc_class.accessible_by(@current_user.current_ability).collect{ |x| [x.name, x.id] }
+
+    field_logic = []
+    field_class = ['has_one_input']
+    field_logic << "f.collection_select :#{association}, options, :last, :first, prompt: true"
+    if @readonly || !validate_permission?(association)
+      field_logic << "disabled: true"
+    end
+    if @styling == :bootstrap5
+      field_class << 'form-select form-select-lg'
+    end
+    field_logic << "class: '#{field_class.join(' ')}'"
+
     puts "OPTIONS: #{options.inspect}"
     """
-      <%= f.label :#{association}, '#{input_name}'.camelize %>
+      <%= #{label_logic.join(', ')} %>
       <% options = #{options} %>
-      <%= f.collection_select :#{association}, options, :last, :first, prompt: true #{@readonly ? ', disabled: true' : ''} %>
+      <%= #{field_logic.join(', ')} %>
     """
   end
 
   def generate_has_many_input(input_name, association)
     return '' unless validate_permission?(association)
+
+    label_logic = []
+    label_logic << "f.label :#{association}, '#{input_name}'.camelize"
+    if @styling == :bootstrap5
+      label_logic << "class: 'form-label'"
+    end
+
     assoc_class = association_class(input_name)
     options = assoc_class.accessible_by(@current_user.current_ability).collect{ |x| [x.name, x.id] }
     puts "OPTIONS: #{options.inspect}"
 
+    field_logic = []
+    field_class = ['has_many_input']
+    field_logic << "f.collection_select :#{association}, options, :last, :first, {}, multiple: true"
+    puts "WHER WE GOT HERE: #{@readonly} - #{!validate_permission?(input_name)} - #{input_name}"
+    if @readonly || !validate_permission?(association)
+      field_logic << "disabled: true"
+    end
+    if @styling == :bootstrap5
+      field_class << 'form-select form-select-lg '
+    end
+    field_logic << "class: '#{field_class.join(' ')}'"
+    puts "FIELD LOGIC: #{field_logic.join(', ')}"
+
     """
-      <%= f.label :#{association}, '#{input_name}'.camelize %>
+      <%= #{label_logic.join(', ')} %>
       <% options = #{options} %>
-      <%= f.collection_select :#{association}, options, :last, :first, {}, multiple: true #{@readonly ? ', disabled: true' : ''} %>
+      <%= #{field_logic.join(', ')} %>
     """
   end
 

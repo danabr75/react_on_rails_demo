@@ -1,8 +1,6 @@
 <% readonly ||= false %>
-<% puts "FORM - readyonly: #{readonly}" %>
 
-
-<%= form_for @resource do |f| %>
+<%= form_for @resource, html: {class: 'resource-form'} do |f| %>
   <div>
     <%=
       raw(
@@ -21,6 +19,6 @@
     %>
   </div>
   <% unless readonly %>
-    <%= f.submit %>
+    <%= f.submit nil, class: 'btn btn-primary' %>
   <% end %>
 <% end %>
