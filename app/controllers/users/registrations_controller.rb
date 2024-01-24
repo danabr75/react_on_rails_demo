@@ -5,7 +5,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   respond_to :json
   layout "devise_application"
   # turn off CSRF that won't render a null session is to add:
-  skip_before_action :verify_authenticity_token
+  #skip_before_action :verify_authenticity_token
+  protect_from_forgery
 
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]

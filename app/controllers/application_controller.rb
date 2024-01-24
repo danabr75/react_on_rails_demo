@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   # before_action :authenticate_user!
   respond_to :json
   # turn off CSRF that won't render a null session is to add:
-  skip_before_action :verify_authenticity_token
+  #skip_before_action :verify_authenticity_token
+  protect_from_forgery unless: -> { request.format.json? }
 
   protected
 
