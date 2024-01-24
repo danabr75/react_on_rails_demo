@@ -18,6 +18,8 @@ gem 'omniauth'
 
 gem 'will_paginate'
 
+gem 'pg', require: false
+
 # Use after docker: https://github.com/elastic/elasticsearch-rails/tree/main
 # gem 'elasticsearch-model'
 # gem 'elasticsearch-rails'
