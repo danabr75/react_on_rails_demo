@@ -35,12 +35,24 @@ Rails.application.routes.draw do
           get :public_index
         end
       end
+      resources :sponsors do
+        collection do
+          get :public_index
+        end
+      end
+      resources :socials do
+        collection do
+          get :public_index
+        end
+      end
     end
   end
 
   resources :users
   resources :blogs
   resources :members
+  resources :sponsors
+  resources :socials
 
   get '/admin_index', to: 'welcome#admin_index', as: :admin_index
 

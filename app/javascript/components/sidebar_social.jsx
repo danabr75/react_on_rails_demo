@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios } from 'react-axios'
 
-const SidebarSponsor = () => {
-  const API_PATH = "/api/v1/sponsors/public_index"
-  const [sponsors, setSponsors] = useState([]);
+const SidebarSocial = () => {
+  const API_PATH = "/api/v1/socials/public_index"
+  const [socials, setSocials] = useState([]);
 
   function getAPIData() {
     console.log("API DATA")
@@ -24,7 +24,7 @@ const SidebarSponsor = () => {
   const fetchTableData = () => {
     console.log('fetchTableData')
     getAPIData().then((items) => {
-      setSponsors(items.data)
+      setSocials(items.data)
     });
   };
 
@@ -33,23 +33,16 @@ const SidebarSponsor = () => {
     fetchTableData();
   }, []);
 
-  // useEffect(() => {
-  //   console.log("FIRST LOAD")
-  // }, []);
   return (
     <div id='tab-team ' className="tab-content">
       <div>
-        {sponsors.map((sponsor) => (
-          <section key={sponsor.attributes.id} className="">
+        {socials.map((social) => (
+          <section key={social.attributes.id} className="">
             <div className="row">
               <div className="col">
-                  <h2 className="article-title">
-                    {sponsor.attributes.name}
-                  </h2>
-                  <p>
-                    {sponsor.attributes.tagline}
-                  </p>
-                  <img src={sponsor.attributes.avatar_url} alt="Attached Image" width="100%" />
+                  <a href={social.attributes.external_url} target="_blank" rel="noopener">
+                    <img src={social.attributes.avatar_url} alt="Attached Image" width="100%" />
+                  </a>
               </div>
             </div>
           </section>
@@ -60,4 +53,4 @@ const SidebarSponsor = () => {
   );
 };
 
-export default SidebarSponsor;
+export default SidebarSocial;

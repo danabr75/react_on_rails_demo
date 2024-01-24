@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import SidebarTeam from '../components/sidebar_team.jsx';
 import SidebarSponsor from '../components/sidebar_sponsor.jsx';
-import SidebarTest from '../components/sidebar_test.jsx';
+import SidebarSocial from '../components/sidebar_social.jsx';
 
 const SideBar = props => {
   const sidebarClass = props.isOpen ? "open" : "";
@@ -15,9 +15,9 @@ const SideBar = props => {
     if (sidebarName == 'sponsor') {
       setActiveComponentName('tab-sponsor')
       setComponentToRender(<SidebarSponsor toggleSidebar={props.toggleSidebar} />)
-    } else if (sidebarName == 'test') {
-      setActiveComponentName('tab-test')
-      setComponentToRender(<SidebarTest toggleSidebar={props.toggleSidebar} />)
+    } else if (sidebarName == 'social') {
+      setActiveComponentName('tab-social')
+      setComponentToRender(<SidebarSocial toggleSidebar={props.toggleSidebar} />)
     } else {
       setActiveComponentName('tab-team')
       setComponentToRender(<SidebarTeam toggleSidebar={props.toggleSidebar} />)
@@ -47,11 +47,11 @@ const SideBar = props => {
               </div>
             </button>
           </div>
-          <div className="sidebar-tab" id='tab-test'>
-            <button onClick={() => sidebarChange('test')} className="btn btn-info mt-3">
+          <div className="sidebar-tab" id='tab-social'>
+            <button onClick={() => sidebarChange('social')} className="btn btn-info mt-3">
               &lt;&lt;
               <div className="tab-text float-end">
-              TEST
+              Socials
               </div>
             </button>
           </div>

@@ -26,10 +26,14 @@ class Ability
       can :manage, Blog, [:title, :body]
 
       can :manage, Member, [:first_name, :last_name, :public, :ordering, :avatar, :title, :alias]
+      can :manage, Sponsor, [:tagline, :name, :public, :ordering, :avatar]
+      can :manage, Social, [:name, :external_url, :public, :ordering, :avatar]
     end
 
     can :index, Blog
     can :public_index, Member
+    can :public_index, Sponsor
+    can :public_index, Social
 
     # MODEL_ABILITIES.each do |filename|
     #   module_klass = File.basename(filename, '.rb').camelize.constantize
