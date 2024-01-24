@@ -12,6 +12,12 @@
         </li>
         <% end %>
 
+        <% if can?(:index, Tag) %>
+        <li class="nav-item">
+          <%= link_to 'Tags', tags_path, class: 'nav-link' %>
+        </li>
+        <% end %>
+
         <% if can?(:index, Blog) %>
         <li class="nav-item">
           <%= link_to 'Blogs', blogs_path, class: 'nav-link' %>

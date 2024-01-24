@@ -23,11 +23,12 @@ class Ability
       can :manage, Role
       can :manage, UserRole
 
-      can :manage, Blog, [:title, :body]
+      can :manage, Blog, [:title, :body, :tag_ids]
 
       can :manage, Member, [:first_name, :last_name, :public, :ordering, :avatar, :title, :alias]
       can :manage, Sponsor, [:tagline, :name, :public, :ordering, :avatar]
       can :manage, Social, [:name, :external_url, :public, :ordering, :avatar]
+      can :manage, Tag, [:name, :category]
     end
 
     can :index, Blog

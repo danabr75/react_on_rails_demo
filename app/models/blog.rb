@@ -1,7 +1,7 @@
 class Blog < ApplicationRecord
   # include Elasticsearch::Model
   # include Elasticsearch::Model::Callbacks
-  searchkick
+  # searchkick
 
   has_many :blogs_tags
   has_many :tags, through: :blogs_tags, source: :tag

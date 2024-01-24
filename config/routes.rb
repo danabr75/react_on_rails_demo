@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :blogs
+  resources :tags
   resources :members
   resources :sponsors
   resources :socials
