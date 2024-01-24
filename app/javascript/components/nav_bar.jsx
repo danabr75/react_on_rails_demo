@@ -53,8 +53,7 @@ const NavBar = () => {
           ) : (
             <ul className="navbar-nav float-end">
               <li className="nav-item">
-                {/* <NavLink className="nav-link" activeclassname="active" to="/login">Login</NavLink> */}
-                <a href="/users/sign_in">
+                <a class="btn btn-info" href="/users/sign_in">
                   Sign in
                 </a>
               </li>

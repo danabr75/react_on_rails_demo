@@ -203,18 +203,18 @@ class FormGenerator
     """
   end
 
-  # 1st GENNed
-  def generate_association_select(input_name, association)
-    assoc_class = association.to_s.classify.constantize
-    options = assoc_class.accessible_by(@current_user.current_ability).collect{ |x| [x.name, x.id] }
-    puts "OPTIONS: #{options.inspect}"
+  # 1st GENNed (unsued)
+  # def generate_association_select(input_name, association)
+  #   assoc_class = association.to_s.classify.constantize
+  #   options = assoc_class.accessible_by(@current_user.current_ability).collect{ |x| [x.name, x.id] }
+  #   puts "OPTIONS: #{options.inspect}"
 
-    """
-      <%= f.label :#{association}, '#{input_name}'.camelize %>
-      <% options = #{options} %>
-      <%= f.collection_select :#{association}_id, options, :last, :first, prompt: true #{@readonly ? ', disabled: true' : ''} %>
-    """
-  end
+  #   """
+  #     <%= f.label :#{association}, '#{input_name}'.camelize %>
+  #     <% options = #{options} %>
+  #     <%= f.collection_select :#{association}_id, options, :last, :first, prompt: true #{@readonly ? ', disabled: true' : ''} %>
+  #   """
+  # end
   # END ASSOC INPUTS
 
   # START ATTACHMENT INPUTS

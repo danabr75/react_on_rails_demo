@@ -17,7 +17,6 @@ class CrudController < ApplicationController
       else
         'show'
       end
-      puts "CASE AAAA"
       render "/shared/#{page}", status: :ok
     else
       return super
@@ -26,7 +25,6 @@ class CrudController < ApplicationController
 
   def respond_with_resources
     if request.format.html?
-      puts "CASE AAAA"
       render '/shared/index', status: :ok
     else
       return super

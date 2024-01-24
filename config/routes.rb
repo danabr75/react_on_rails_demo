@@ -48,9 +48,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   # Needed to exclude the ActiveStorage routes, else intercepted
-  constraints(/\/rails\/.*/) do
-    # Letting reactJS handle all routes
-    get '*path', to: 'welcome#index'
-  end
+  # Letting reactJS handle all routes
+  get '*path', to: 'welcome#index', constraints: lambda{|req| puts req.path; req.path !~ /^\/rails\/.*/ }
 
 end

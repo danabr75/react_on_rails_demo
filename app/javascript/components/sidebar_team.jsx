@@ -38,17 +38,15 @@ const SidebarTeam = () => {
   // }, []);
   return (
     <div id='tab-team ' className="tab-content">
-      <div> I slide into view </div>
-      <div> Me Too! </div>
-      <div> Me Three! </div>
       <div>
         {members.map((member) => (
           <section key={member.attributes.id} className="">
             <div className="row">
-              <div className="col col-md-4">
+              <div className="col">
                   <h2 className="article-title">
                     {member.attributes.full_name}
                   </h2>
+                  <img src={member.attributes.avatar_url} alt="Attached Image" width="100" />
               </div>
             </div>
           </section>

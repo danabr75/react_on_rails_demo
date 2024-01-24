@@ -1,6 +1,7 @@
 class Api::V1::ApiAbstractController < ApplicationController
   include CanCanCan::AbstractResourceController
   before_action :slow_down_dev_env, if: -> { Rails.env.development? }
+  include ActiveStorage::SetCurrent if Rails.configuration.active_storage.service == :local
 
   def meta
     authorize! :index, @resource_class
