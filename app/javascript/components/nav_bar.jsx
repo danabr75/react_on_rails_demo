@@ -32,7 +32,9 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link" activeclassname="active" to="/">Boxman's Base</NavLink>
+              <NavLink className="nav-link" activeclassname="active" to="/">
+                Boxman's Base<span class='noir-text'> Noir</span>
+              </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" activeclassname="active" to="/game_blogs">Game Blogs</NavLink>

@@ -9,23 +9,51 @@ const SideBar = props => {
 
   const [componentToRender, setComponentToRender] = useState(<SidebarTeam toggleSidebar={props.toggleSidebar} />);
   
+  // 'tab-team' is the Default Tab, but means nothing; Will get overridden on tab clicks.
   const [activeComponentName, setActiveComponentName] = useState('tab-team');
+
+  const [noirMode, setNoirMode] = useState(false);
 
   const sidebarChange = (sidebarName) => {
     if (sidebarName == 'sponsor') {
       setActiveComponentName('tab-sponsor')
       setComponentToRender(<SidebarSponsor toggleSidebar={props.toggleSidebar} />)
+      props.toggleSidebar(sidebarName);
     } else if (sidebarName == 'social') {
       setActiveComponentName('tab-social')
       setComponentToRender(<SidebarSocial toggleSidebar={props.toggleSidebar} />)
+      props.toggleSidebar(sidebarName);
+    } else if (sidebarName == 'noir') {
+      console.log("BEFORE NOIR")
+      console.log(noirMode)
+      setActiveComponentName('tab-noir')
+      setNoirMode(!noirMode)
+      console.log("AFTER NOIR")
+      console.log(noirMode)
     } else {
       setActiveComponentName('tab-team')
       setComponentToRender(<SidebarTeam toggleSidebar={props.toggleSidebar} />)
+      props.toggleSidebar(sidebarName);
     }
-    
-    props.toggleSidebar(sidebarName);
   };
 
+// Noir Effect
+// - Bug where noir is activated on page load. Checking tab name to compensate.
+useEffect(() => {
+  console.log("NOIR EFFECT EXECUTED")
+  console.log(noirMode)
+  if (activeComponentName == 'tab-noir') {
+    if (noirMode) {
+      $('.flip-container').addClass('flip')
+      $('html').addClass('noir')
+      $('.noir-text').addClass('active')
+    } else {
+      $('.flip-container').removeClass('flip')
+      $('html').removeClass('noir')
+      $('.noir-text').removeClass('active')
+    }
+  }
+}, [noirMode]);
 
   return (
     <>
@@ -55,6 +83,29 @@ const SideBar = props => {
               </div>
             </button>
           </div>
+
+          <div id='tab-noir' className="flip-container sidebar-tab">
+            <div className="flipper">
+              <div className="front">
+                <button onClick={() => sidebarChange('noir')} className="btn btn-info mt-3">
+                  <span>&lt;&lt;</span>
+                  <div className="tab-text float-end">
+                    Noir
+                  </div>
+                </button>
+              </div>
+              <div className="back">
+                <button onClick={() => sidebarChange('noir')} className="btn btn-info mt-3">
+                  <span>&gt;&gt;</span>
+                  <div className="tab-text float-end">
+                    Noir
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+
         </div>
       </div>
 

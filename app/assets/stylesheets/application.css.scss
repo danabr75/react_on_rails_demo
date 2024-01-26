@@ -21,6 +21,7 @@
 @import 'navbar.css.scss';
 @import 'blog.css.scss';
 @import 'semantic-ui-css/semantic.min.css';
+@import 'flipping.css.scss';
 
 /* always show scrollbar */
 body {
@@ -37,6 +38,18 @@ body#body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+html.noir {
+  filter: grayscale(1);
+}
+
+.noir-text {
+  font-style: italic;
+  visibility: hidden;
+  &.active {
+    visibility: visible
+  }
 }
 
 #root-container {
@@ -123,6 +136,6 @@ input {
   /*  padding-right: calc(var(--bs-gutter-x) * .5) !important;*/
   /*  padding-right: min(70px, calc(var(--bs-gutter-x) * .5));*/
   /* ideally this would be margin-right-min, but not a thing  */
-    margin-right: 80px !important;
+    /* margin-right: 80px !important; */
   }
 }
