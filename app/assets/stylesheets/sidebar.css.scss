@@ -8,11 +8,14 @@
   right: 0;
   transition: right 0.3s ease-in-out;
 }
-
+/* team default */
 .sidebar-tab {
   button {
     .tab-text {
       width: 100%;
+    }
+    &:hover {
+      box-shadow: 0rem 0rem 0.5rem 0.5rem rgba(13, 202, 240, 0.4);
     }
   }
 }
@@ -21,6 +24,9 @@
   button {
    background-color: red;
    border-color: red;
+    &:hover {
+      box-shadow: 0rem 0rem 0.5rem 0.5rem rgba(255, 0, 0, 0.4);
+    }
   }
 }
 
@@ -28,12 +34,19 @@
   button {
    background-color: #ff85ff;
    border-color: #ff85ff;
+    &:hover {
+      box-shadow: 0rem 0rem 0.5rem 0.5rem rgba(255, 133, 255, 0.4);
+    }
   }
 }
 
 #tab-noir {
   button {
    background: linear-gradient(to right, white 50%, gray 50%);
+   border: 1px solid gray;
+    &:hover {
+      box-shadow: 0rem 0rem 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
+    }
   }
 }
 
@@ -77,53 +90,6 @@
 #tab-noir {
   .tab-text {
     color: black;
-  }
-}
-
-@keyframes flame-for-white-text {
-  0% {
-    text-shadow: none;
-  }
-  50% {
-    text-shadow: 0rem 2rem #558ABB;
-  }
-  100% {
-    text-shadow: 0rem 2rem transparent;
-  }
-}
-@keyframes flame-for-black-text {
-  0% {
-    color: black;
-    text-shadow: none;
-  }
-  50% {
-    color: #FF5722;
-    text-shadow: 0 0 20px #ff5722, 0 0 30px #ff5722, 0 0 40px #ff5722, 0 0 70px #ff5722, 0 0 80px #ff5722, 0 0 100px #ff5722, 0 0 150px #ff5722;
-  }
-  100% {
-    color: #FF9800;
-    text-shadow: 0 0 20px #FF9800, 0 0 40px #FF9800, 0 0 60px #FF9800, 0 0 80px #FF9800, 0 0 100px #FF9800, 0 0 120px #FF9800, 0 0 140px #FF9800;
-  }
-}
-
-/* Styling for the flame text */
-.flame-text {
-  .tab-text {
-    font-size: inherit;
-    font-family: inherit;
-    transition: color 0.5s ease;
-  }
-}
-
-/* Apply the flame animation on hover */
-.flame-white-text:hover {
-  .tab-text {
-    animation: flame-for-white-text 1s infinite;
-  }
-}
-.flame-black-text:hover {
-  .tab-text {
-    animation: flame-for-black-text 5s infinite alternate;
   }
 }
 
