@@ -33,7 +33,7 @@ const NavBar = () => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink className="nav-link" activeclassname="active" to="/">
-                Boxman's Base<span class='noir-text'> Noir</span>
+                Boxman's Base<span class='noir-text-hidden'> Noir</span>
               </NavLink>
             </li>
             <li className="nav-item">

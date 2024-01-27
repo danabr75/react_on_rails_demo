@@ -44,7 +44,7 @@ html.noir {
   filter: grayscale(1);
 }
 
-.noir-text {
+.noir-text-hidden {
   font-style: italic;
   visibility: hidden;
   &.active {

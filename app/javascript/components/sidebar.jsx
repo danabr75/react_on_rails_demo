@@ -46,11 +46,13 @@ useEffect(() => {
     if (noirMode) {
       $('.flip-container').addClass('flip')
       $('html').addClass('noir')
-      $('.noir-text').addClass('active')
+      $('.noir-text-hidden').addClass('active')
+      // $('.tab-text').addClass('noir-text')
     } else {
       $('.flip-container').removeClass('flip')
       $('html').removeClass('noir')
-      $('.noir-text').removeClass('active')
+      $('.noir-text-hidden').removeClass('active')
+      // $('.tab-text').removeClass('noir-text')
     }
   }
 }, [noirMode]);
@@ -59,7 +61,7 @@ useEffect(() => {
     <>
       <div className={sidebarHeaderClass + " sidebar-tabs"}>
         <div className="header-toggle-content ">
-          <div className="sidebar-tab" id='tab-team'>
+          <div className="sidebar-tab flame-white-text" id='tab-team'>
             <button onClick={() => sidebarChange('team')} className="btn btn-info mt-3">
               &lt;&lt;
               <div className="tab-text float-end">
@@ -67,7 +69,7 @@ useEffect(() => {
               </div>
             </button>
           </div>
-          <div className="sidebar-tab" id='tab-sponsor'>
+          <div className="sidebar-tab flame-white-text" id='tab-sponsor'>
             <button onClick={() => sidebarChange('sponsor')} className="btn btn-info mt-3">
               &lt;&lt;
               <div className="tab-text float-end">
@@ -75,7 +77,7 @@ useEffect(() => {
               </div>
             </button>
           </div>
-          <div className="sidebar-tab" id='tab-social'>
+          <div className="sidebar-tab flame-white-text" id='tab-social'>
             <button onClick={() => sidebarChange('social')} className="btn btn-info mt-3">
               &lt;&lt;
               <div className="tab-text float-end">
@@ -84,7 +86,7 @@ useEffect(() => {
             </button>
           </div>
 
-          <div id='tab-noir' className="flip-container sidebar-tab">
+          <div className="flip-container sidebar-tab flame-black-text" id='tab-noir'>
             <div className="flipper">
               <div className="front">
                 <button onClick={() => sidebarChange('noir')} className="btn btn-info mt-3">
